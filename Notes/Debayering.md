@@ -85,6 +85,10 @@ terpolated independently, the misalignments near edges produce strong color dist
 artifacts.
 * To improve upon the quality of the bilinear method, Malvar, He, and Cutler follow the work of
 Pei and Tam by adding Laplacian cross-channel corrections.
+* Consider the case of finding G at an R or a B pixel.
+* If the actual R value differs considerably from the linearly
+interpolated R value, it means that there is a sharp luminance
+change at that pixel.
 * The green component at a red pixel
 location is estimated as
 
@@ -148,3 +152,14 @@ similarly.
 ![5 x 5 Filters](https://miro.medium.com/max/982/1*lJg8EZlsLhK5FJLTgfVJeQ.png)
 
 <i>5 x 5 linear filters</i>
+
+
+![](G_at_B_R.png)
+
+![](R_at_B.png)
+
+![](R_at_G.png)
+
+![](B_at_R.png)
+
+![](B_at_G.png)
