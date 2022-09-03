@@ -126,18 +126,18 @@ matrix RB_at_BR(matrix image)
 }
 int main()
 {
-    fstream inputFile("Data.txt", ios::in);         // File containing pixel values in hexadecimal
-    fstream outputFile("FinalFile1.txt", ios::out); // File for storing the decimal values
+    fstream inputFile("Data.txt", ios::in);
+    fstream outputFile("FinalFile1.txt", ios::out);
     string buffer;
     int i = 0;
     vector<double> temp;
-    matrix image(height + 4, vector<double>(width + 4, 0)); // Making a vector of vector filled with zeros
+    matrix image(height + 4, vector<double>(width + 4, 0));
     while (inputFile)
     {
         inputFile >> buffer;
         outputFile << HexToDec(buffer) << endl;
         i++;
-        temp.push_back(HexToDec(buffer));
+        temp.push_back((HexToDec(buffer)));
     }
     int k = 0;
     for (int i = 2; i < height + 2; i++)
@@ -208,11 +208,11 @@ int main()
         {
             if (i % 2 == 0 && j % 2 == 0)
             {
-                R[i][j] = tmp[i][j];
+                G[i][j] = tmp[i][j];
             }
             else if (i % 2 == 1 && j % 2 == 1)
             {
-                B[i][j] = tmp[i][j];
+                G[i][j] = tmp[i][j];
             }
         }
     }
@@ -227,7 +227,7 @@ int main()
             {
                 B[i][j] = tmp2[i][j];
             }
-            else if (i % 2 == 1 && j % 2 != 0)
+            else if (i % 2 == 1 && j % 2 == 1)
             {
                 R[i][j] = tmp2[i][j];
             }
