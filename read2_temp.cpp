@@ -1,34 +1,84 @@
 #include <bits/stdc++.h>
+#include <math.h>
 using namespace std;
 int height = 480, width = 640;
 using matrix = vector<vector<double>>;
-int HexToDec(string num)
+double averageOfPixels(matrix image)
 {
-    int length = num.length() - 1;
-    int dec = 0;
-    for (int i = 0; i < num.length(); i++)
+    double average, sum = 0;
+    int count = 0;
+    for (int i = 0; i < height; i++)
     {
-        if (num[i] == 'A' || num[i] == 'a')
-            dec = dec + 10 * pow(16, length);
-        else if (num[i] == 'B' || num[i] == 'b')
-            dec = dec + 11 * pow(16, length);
-        else if (num[i] == 'c' || num[i] == 'C')
-            dec = dec + 12 * pow(16, length);
-        else if (num[i] == 'D' || num[i] == 'd')
-            dec = dec + 13 * pow(16, length);
-        else if (num[i] == 'E' || num[i] == 'e')
-            dec = dec + 14 * pow(16, length);
-        else if (num[i] == 'F' || num[i] == 'f')
-            dec = dec + 15 * pow(16, length);
-        else
+        for (int j = 0; j < width; j++)
         {
-            string number = "";
-            number += num[i];
-            dec = dec + pow(16, length) * stoi(number);
+            sum += image[i][j];
+            count++;
         }
-        length--;
     }
-    return dec;
+    return (sum / count);
+}
+matrix gammaCorrection(matrix image, double gamma)
+{
+    matrix res(height, vector<double>(width, 0));
+    double power = 1 / gamma;
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            res[i][j] = double(pow(image[i][j], power));
+        }
+    }
+    return res;
+}
+int minEle(matrix image)
+{
+    int result = std::numeric_limits<int>::max();
+    for (const auto &row : image)
+    {
+        int minElemInRow = *std::min_element(row.begin(), row.end());
+        result = std::min(result, minElemInRow);
+    }
+    return result;
+}
+int maxEle(matrix image)
+{
+    int result = std::numeric_limits<int>::min();
+    for (const auto &row : image)
+    {
+        int minElemInRow = *std::max_element(row.begin(), row.end());
+        result = std::max(result, minElemInRow);
+    }
+    return result;
+}
+// Normalization
+matrix scale(matrix image, double a = 0, double b = 1)
+{
+    int maxELement = maxEle(image), minElement = minEle(image);
+    matrix result(height, vector<double>(width, 0));
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            result[i][j] = (double)((image[i][j] - (maxELement + minElement) / 2.0) / (maxELement - minElement));
+            result[i][j] = (double)(result[i][j] * (b - a) + (b + a) / 2.0);
+        }
+    }
+    return result;
+}
+double maxNumber(double a, double b, double c)
+{
+    if (a >= b && a >= c)
+        return a;
+    if (b >= a && b >= c)
+        return b;
+    return c;
+}
+matrix whiteBalance(matrix image, double avgRed, double avgGreen, double avgBlue)
+{
+    double avgi = averageOfPixels(image);
+    double ri = maxNumber(avgRed, avgBlue, avgGreen) / (double)avgi;
+    cout << avgRed << " " << avgBlue << " " << avgGreen << " " << avgi << " " << ri << endl;
+    return scale(image, 0, ri);
 }
 void display(matrix);
 matrix vectorSlice(matrix &orig, int a, int b, int row_lower, int row_limit)
@@ -104,40 +154,43 @@ matrix convolve(matrix &image, matrix &kernel)
     }
     return convolved_image;
 }
-matrix G_at_BR(matrix image)
+
+matrix G_at_BR(matrix &image)
 {
-    matrix kernel = {{0, 0, -1, 0, 0}, {0, 0, 2, 0, 0}, {-1, 2, 4, 2, -1}, {0, 0, 2, 0, 0}, {0, 0, -1, 0, 0}};
+    matrix kernel = {{0.0, 0.0, -1.0, 0.0, 0.0}, {0.0, 0.0, 2.0, 0.0, 0.0}, {-1.0, 2.0, 4.0, 2.0, -1.0}, {0.0, 0.0, 2.0, 0.0, 0.0}, {0.0, 0.0, -1.0, 0.0, 0.0}};
+
     return convolve(image, kernel);
 }
-matrix RB_at_G_in_RBrow_BRcol(matrix image)
+matrix RB_at_G_in_RBrow_BRcol(matrix &image)
 {
     matrix kernel = {{0, 0, 0.5, 0, 0}, {0, -1, 0, -1, 0}, {-1, 4, 5, 4, -1}, {0, -1, 0, -1, 0}, {0, 0, 0.5, 0, 0}};
     return convolve(image, kernel);
 }
-matrix RB_at_G_in_BRrow_RBcol(matrix image)
+matrix RB_at_G_in_BRrow_RBcol(matrix &image)
 {
     matrix kernel = {{0, 0, -1, 0, 0}, {0, -1, 4, -1, 0}, {0.5, 0, 5, 0, 0.5}, {0, -1, 4, -1, 0}, {0, 0, -1, 0, 0}};
     return convolve(image, kernel);
 }
-matrix RB_at_BR(matrix image)
+matrix RB_at_BR(matrix &image)
 {
     matrix kernel = {{0, 0, -1.5, 0, 0}, {0, 2, 0, 2, 0}, {-1.5, 0, 6, 0, -1.5}, {0, 2, 0, 2, 0}, {0, 0, -1.5, 0, 0}};
     return convolve(image, kernel);
 }
 int main()
 {
-    fstream inputFile("Data.txt", ios::in);
-    fstream outputFile("FinalFile1.txt", ios::out);
-    string buffer;
+    // CSClOutput.txt ==> Contains the pixel values of CFA
+    fstream inputFile("CSCloutput.txt", ios::in);
+    // fstream outputFile("FinalFile1.txt", ios::out);
+    double buffer;
     int i = 0;
     vector<double> temp;
     matrix image(height + 4, vector<double>(width + 4, 0));
     while (inputFile)
     {
         inputFile >> buffer;
-        outputFile << HexToDec(buffer) << endl;
+        // outputFile << (buffer) << endl;
         i++;
-        temp.push_back((HexToDec(buffer)));
+        temp.push_back((buffer));
     }
     int k = 0;
     for (int i = 2; i < height + 2; i++)
@@ -148,14 +201,11 @@ int main()
             k++;
         }
     }
-
     matrix R(height, vector<double>(width, 0));
     matrix G(height, vector<double>(width, 0));
     matrix B(height, vector<double>(width, 0));
 
     // Copying data that doesn't need interpolation
-    cout << R.size() << " " << R[0].size() << endl;
-    cout << image.size() << " " << image[0].size() << endl;
     int i1 = 0;
     for (int i = 2; i < height + 2; i++)
     {
@@ -227,7 +277,7 @@ int main()
             {
                 B[i][j] = tmp2[i][j];
             }
-            else if (i % 2 == 1 && j % 2 == 1)
+            else if (i % 2 == 1 && j % 2 == 0)
             {
                 R[i][j] = tmp2[i][j];
             }
@@ -240,11 +290,11 @@ int main()
         {
             if (i % 2 == 1 && j % 2 == 0)
             {
-                R[i][j] = tmp3[i][j];
+                B[i][j] = tmp3[i][j];
             }
             else if (i % 2 == 0 && j % 2 == 1)
             {
-                B[i][j] = tmp3[i][j];
+                R[i][j] = tmp3[i][j];
             }
         }
     }
@@ -263,24 +313,15 @@ int main()
             }
         }
     }
-    for (int i = 0; i < height; i++)
-    {
-        for (int j = 0; j < width; j++)
-        {
-            if (R[i][j] < 0)
-                R[i][j] = 0;
-            else if (R[i][j] > 65535)
-                R[i][j] = 65535;
-            else if (B[i][j] < 0)
-                B[i][j] = 0;
-            else if (B[i][j] > 65535)
-                B[i][j] = 65535;
-            else if (G[i][j] < 0)
-                G[i][j] = 0;
-            else if (G[i][j] > 65535)
-                G[i][j] = 65535;
-        }
-    }
+    double avgRed = averageOfPixels(R);
+    double avgGreen = averageOfPixels(G);
+    double avgBlue = averageOfPixels(B);
+    R = whiteBalance(R, avgRed, avgGreen, avgBlue);
+    R = gammaCorrection(R, 0.7);
+    G = whiteBalance(G, avgRed, avgGreen, avgBlue);
+    G = gammaCorrection(G, 0.7);
+    B = whiteBalance(B, avgRed, avgGreen, avgBlue);
+    B = gammaCorrection(B, 0.7);
     fstream redFile("Red.txt", ios::out);
     for (int i = 0; i < height; i++)
     {
@@ -307,5 +348,16 @@ int main()
             blueFile << B[i][j] << " ";
         }
         blueFile << endl;
+    }
+
+    // Merging the three channels and storing the values in a file
+    fstream file3("RGBImage.txt", ios::out);
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            file3 << R[i][j] << " " << G[i][j] << " " << B[i][j] << " ";
+        }
+        file3 << endl;
     }
 }
