@@ -1,3 +1,7 @@
+## CFA Image
+![RAW Image](Flash2.png)
+
+
 ## Debayering
 Debayering, also known as demosaicing, is the process to convert a CFA image (m-by-n) to a true RGB color digital image (m-by-n-by-3).
 
