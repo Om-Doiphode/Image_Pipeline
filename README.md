@@ -56,3 +56,13 @@ r<sub>i</sub> = <sup>max(avg<sub>R</sub> + avg<sub>G</sub> + avg<sub>B</sub>)</s
 
 #### Gamma value greater than 1
 ![Image after Gamma Correction(<1)](Notes/Gamma>1.png)
+
+## Black Level Correction -
+* Black level leads to the whitening of image's dark region and perceived loss of overall contrast
+So the goal of this algorithm is to make Black to be Black
+
+## Algorithm - 
+* We start with finding the Global Threshold Value of the image and then we consider the pixels having intensity less than the global threshold value, these pixels are those pixels which are representing the dark section of the image. Then we reduce the intensity of those pixels, so that the whiteish black looks more black now.
+* Bands were being displayed because of abrupt change of intensity between the pixels of dark region and bright region, So to reduce the bands effect we added more conditions so the abrupt intensity change between the bright and dark region is smoothened out somewhat.
+
+![Image after Black Level Correction](Notes/BLC.png)
