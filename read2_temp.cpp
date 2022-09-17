@@ -4,7 +4,7 @@
 using namespace cv;
 using namespace std;
 
-Mat im = imread("sample.tiff");
+Mat im = imread("Flash2.tiff");
 int height = im.rows, width = im.cols;
 using matrix = vector<vector<double>>;
 double averageOfPixels(matrix image)
@@ -282,9 +282,9 @@ vector<vector<vector<double>>> autoContrast(matrix R, matrix G, matrix B)
     double input_range_G = max_G - min_G;
     double input_range_B = max_B - min_B;
 
-    double alpha_R = 240 / input_range_R;
-    double alpha_G = 240 / input_range_G;
-    double alpha_B = 240 / input_range_B;
+    double alpha_R = 255 / input_range_R;
+    double alpha_G = 255 / input_range_G;
+    double alpha_B = 255 / input_range_B;
 
     double beta_R = -min_R * alpha_R;
     double beta_G = -min_G * alpha_G;
@@ -321,6 +321,7 @@ vector<vector<vector<double>>> autoContrast(matrix R, matrix G, matrix B)
 
     return final_image;
 }
+
 matrix Truncate(matrix image, int brightness, double factor = 1)
 {
     matrix final_image(height, vector<double>(width, 0));
@@ -340,20 +341,108 @@ matrix Truncate(matrix image, int brightness, double factor = 1)
 }
 matrix Contrast(matrix image, int contrast)
 {
-    double factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+    // double factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
     matrix final_image(height, vector<double>(width, 0));
+    // for (int i = 0; i < height; i++)
+    // {
+    //     for (int j = 0; j < width; j++)
+    //     {
+    //         if (((image[i][j] * factor - 128) + 128) < 0)
+    //             final_image[i][j] = 0;
+    //         else if (((image[i][j] * factor - 128) + 128) > 255)
+    //             final_image[i][j] = 255;
+    //         else
+    //             final_image[i][j] = image[i][j];
+    //     }
+    // }
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
         {
-            if (((image[i][j] * factor - 128) + 128) < 0)
-                final_image[i][j] = 0;
-            else if (((image[i][j] * factor - 128) + 128) > 255)
-                final_image[i][j] = 255;
-            else
-                final_image[i][j] = image[i][j];
+            final_image[i][j] = image[i][j] * contrast;
         }
     }
+    return final_image;
+}
+vector<vector<vector<double>>> autoAdjust(matrix R, matrix G, matrix B)
+{
+    vector<vector<vector<double>>> new_image;
+
+    matrix O_R(height, vector<double>(width, 0));
+    matrix O_G(height, vector<double>(width, 0));
+    matrix O_B(height, vector<double>(width, 0));
+
+    // # calculate stats
+    double alow = minEle(R);
+    double ahigh = maxEle(R);
+    double amax = 255;
+    double amin = 0;
+
+    // #access each pixel, and auto adjust
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            double a = R[i][j];
+            O_R[i][j] = amin + (a - alow) * ((amax - amin) / (ahigh - alow));
+        }
+    }
+    alow = minEle(G);
+    ahigh = maxEle(G);
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            double a = G[i][j];
+            O_G[i][j] = amin + (a - alow) * ((amax - amin) / (ahigh - alow));
+        }
+    }
+    alow = minEle(B);
+    ahigh = maxEle(B);
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            double a = B[i][j];
+            O_B[i][j] = amin + (a - alow) * ((amax - amin) / (ahigh - alow));
+        }
+    }
+    new_image.push_back(O_R);
+    new_image.push_back(O_G);
+    new_image.push_back(O_B);
+    return new_image;
+}
+vector<vector<vector<double>>> RGB2YUV(matrix R, matrix G, matrix B)
+{
+    vector<vector<vector<double>>> final_image;
+    matrix Y(height, vector<double>(width, 0));
+    matrix U(height, vector<double>(width, 0));
+    matrix V(height, vector<double>(width, 0));
+
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            Y[i][j] = 0.299 * R[i][j] + 0.587 * G[i][j] + 0.114 * B[i][j];
+        }
+    }
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            U[i][j] = 0.492 * (B[i][j] - Y[i][j]);
+        }
+    }
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            V[i][j] = 0.877 * (R[i][j] - Y[i][j]);
+        }
+    }
+    final_image.push_back(Y);
+    final_image.push_back(U);
+    final_image.push_back(V);
     return final_image;
 }
 vector<vector<vector<double>>> debayering(matrix image)
@@ -471,14 +560,11 @@ vector<vector<vector<double>>> debayering(matrix image)
         }
     }
     vector<vector<vector<double>>> debayered_image;
-    vector<vector<vector<double>>> combine = autoContrast(R, G, B);
+    vector<vector<vector<double>>> combine = autoAdjust(R, G, B);
     R = combine[0];
     G = combine[1];
     B = combine[2];
 
-    // R = Contrast(R, 128);
-    // G = Contrast(G, 128);
-    // B = Contrast(B, 128);
     debayered_image.push_back(R);
     debayered_image.push_back(G);
     debayered_image.push_back(B);
@@ -554,256 +640,6 @@ matrix FlipImage(matrix image)
     }
     return res;
 }
-vector<vector<vector<double>>> tonemapping(matrix R, matrix G, matrix B)
-{
-    vector<vector<vector<double>>> final_image;
-    // 1. Intensity
-    Mat I(height, width, CV_32FC1);
-    for (int i = 0; i < R.size(); i++)
-    {
-        for (int j = 0; j < R[0].size(); j++)
-        {
-            I.at<double>(i, j) = double(R.at(i).at(j) * 20 + G.at(i).at(j) * 40 + B.at(i).at(j)) / 61;
-        }
-    }
-
-    // 2. Chrominance channels
-    matrix C_R(height, vector<double>(width, 0));
-    matrix C_G(height, vector<double>(width, 0));
-    matrix C_B(height, vector<double>(width, 0));
-
-    for (int i = 0; i < R.size(); i++)
-    {
-        for (int j = 0; j < R[0].size(); j++)
-        {
-            C_R[i][j] = R[i][j] / I.at<double>(i, j);
-        }
-    }
-    for (int i = 0; i < R.size(); i++)
-    {
-        for (int j = 0; j < R[0].size(); j++)
-        {
-            C_G[i][j] = G[i][j] / I.at<double>(i, j);
-        }
-    }
-    for (int i = 0; i < R.size(); i++)
-    {
-        for (int j = 0; j < R[0].size(); j++)
-        {
-            C_B[i][j] = B[i][j] / I.at<double>(i, j);
-        }
-    }
-
-    // 3. Log of intensity
-    Mat L(height, width, CV_32FC1);
-    for (int i = 0; i < I.rows; i++)
-    {
-        for (int j = 0; j < I.cols; j++)
-        {
-            L.at<double>(i, j) = log2(I.at<double>(i, j));
-        }
-    }
-
-    // 4. Bilateral Filter
-    Mat Bi(height, width, CV_32FC1);
-    bilateralFilter(L, Bi, 7, 3, 10);
-
-    // 5. Detail Layer
-    Mat D(height, width, CV_64FC1);
-    for (int i = 0; i < I.rows; i++)
-    {
-        for (int j = 0; j < I.cols; j++)
-        {
-            D.at<double>(i, j) = L.at<double>(i, j) - (Bi.at<double>(i, j));
-        }
-    }
-
-    // 6. Offset and scale
-    Mat Bi_im(height, width, CV_64FC1);
-    for (int i = 0; i < Bi.rows; i++)
-    {
-        for (int j = 0; j < Bi.cols; j++)
-        {
-            Bi_im.at<double>(i, j) = (Bi.at<double>(i, j) - 4) * 3;
-        }
-    }
-
-    // 7. Reconstruct log intensity
-    Mat O(height, width, CV_64FC1);
-    for (int i = 0; i < Bi.rows; i++)
-    {
-        for (int j = 0; j < Bi.cols; j++)
-        {
-            O.at<double>(i, j) = exp(Bi_im.at<double>(i, j) + D.at<double>(i, j));
-        }
-    }
-
-    // 8. Put the color back
-    matrix R_im(height, vector<double>(width, 0));
-    matrix G_im(height, vector<double>(width, 0));
-    matrix B_im(height, vector<double>(width, 0));
-
-    for (int i = 0; i < C_R.size(); i++)
-    {
-        for (int j = 0; j < C_R[0].size(); j++)
-        {
-            R_im[i][j] = O.at<double>(i, j) * C_R[i][j];
-        }
-    }
-    for (int i = 0; i < C_G.size(); i++)
-    {
-        for (int j = 0; j < C_G[0].size(); j++)
-        {
-            G_im[i][j] = O.at<double>(i, j) * C_G[i][j];
-        }
-    }
-    for (int i = 0; i < C_B.size(); i++)
-    {
-        for (int j = 0; j < C_B[0].size(); j++)
-        {
-            B_im[i][j] = O.at<double>(i, j) * C_B[i][j];
-        }
-    }
-
-    // 9. Gamma correction
-
-    R_im = gammaCorrection(R_im, 0.8);
-    G_im = gammaCorrection(G_im, 0.8);
-    B_im = gammaCorrection(B_im, 0.8);
-
-    final_image.push_back(R_im);
-    final_image.push_back(G_im);
-    final_image.push_back(B_im);
-
-    return final_image;
-}
-vector<vector<vector<double>>> toneMapping(Mat R, Mat G, Mat B)
-{
-    vector<vector<vector<double>>> final_image;
-    // 1. Intensity
-    Mat I(height, width, CV_32FC1);
-    for (int i = 0; i < R.rows; i++)
-    {
-        for (int j = 0; j < R.cols; j++)
-        {
-            I.at<double>(i, j) = double(R.at<double>(i, j) * 20 + G.at<double>(i, j) * 40 + B.at<double>(i, j)) / 61;
-        }
-    }
-
-    // 2. Chrominance channels
-    // matrix C_R(height, vector<double>(width, 0));
-    // matrix C_G(height, vector<double>(width, 0));
-    // matrix C_B(height, vector<double>(width, 0));
-
-    Mat C_R(height, width, CV_32F);
-    Mat C_G(height, width, CV_32F);
-    Mat C_B(height, width, CV_32F);
-
-    for (int i = 0; i < R.rows; i++)
-    {
-        for (int j = 0; j < R.cols; j++)
-        {
-            C_R.at<double>(i, j) = R.at<double>(i, j) / I.at<double>(i, j);
-        }
-    }
-    for (int i = 0; i < R.rows; i++)
-    {
-        for (int j = 0; j < R.cols; j++)
-        {
-            C_G.at<double>(i, j) = G.at<double>(i, j) / I.at<double>(i, j);
-        }
-    }
-    for (int i = 0; i < R.rows; i++)
-    {
-        for (int j = 0; j < R.cols; j++)
-        {
-            C_B.at<double>(i, j) = B.at<double>(i, j) / I.at<double>(i, j);
-        }
-    }
-
-    // 3. Log of intensity
-    Mat L(height, width, CV_32F);
-    for (int i = 0; i < I.rows; i++)
-    {
-        for (int j = 0; j < I.cols; j++)
-        {
-            L.at<double>(i, j) = log2(I.at<double>(i, j));
-        }
-    }
-
-    // 4. Bilateral Filter
-    Mat Bi(height, width, CV_32FC1);
-    bilateralFilter(L, Bi, 7, 3, 10);
-
-    // 5. Detail Layer
-    Mat D(height, width, CV_64FC1);
-    for (int i = 0; i < I.rows; i++)
-    {
-        for (int j = 0; j < I.cols; j++)
-        {
-            D.at<double>(i, j) = L.at<double>(i, j) - (Bi.at<double>(i, j));
-        }
-    }
-
-    // 6. Offset and scale
-    Mat Bi_im(height, width, CV_32F);
-    for (int i = 0; i < Bi.rows; i++)
-    {
-        for (int j = 0; j < Bi.cols; j++)
-        {
-            Bi_im.at<double>(i, j) = (Bi.at<double>(i, j) - 4) * 3;
-        }
-    }
-
-    // 7. Reconstruct log intensity
-    Mat O(height, width, CV_32F);
-    for (int i = 0; i < Bi.rows; i++)
-    {
-        for (int j = 0; j < Bi.cols; j++)
-        {
-            O.at<double>(i, j) = exp(Bi_im.at<double>(i, j) + D.at<double>(i, j));
-        }
-    }
-
-    // 8. Put the color back
-    matrix R_im(height, vector<double>(width, 0));
-    matrix G_im(height, vector<double>(width, 0));
-    matrix B_im(height, vector<double>(width, 0));
-
-    for (int i = 0; i < C_R.rows; i++)
-    {
-        for (int j = 0; j < C_R.cols; j++)
-        {
-            R_im[i][j] = O.at<double>(i, j) * C_R.at<double>(i, j);
-        }
-    }
-    for (int i = 0; i < C_G.rows; i++)
-    {
-        for (int j = 0; j < C_G.cols; j++)
-        {
-            G_im[i][j] = O.at<double>(i, j) * C_G.at<double>(i, j);
-        }
-    }
-    for (int i = 0; i < C_B.rows; i++)
-    {
-        for (int j = 0; j < C_B.cols; j++)
-        {
-            B_im[i][j] = O.at<double>(i, j) * C_B.at<double>(i, j);
-        }
-    }
-
-    // 9. Gamma correction
-
-    R_im = gammaCorrection(R_im, 0.8);
-    G_im = gammaCorrection(G_im, 0.8);
-    B_im = gammaCorrection(B_im, 0.8);
-
-    final_image.push_back(R_im);
-    final_image.push_back(G_im);
-    final_image.push_back(B_im);
-
-    return final_image;
-}
 matrix EdgeDetect(matrix image)
 {
     matrix kernel = {{-1, -1, -1}, {-1, 8, -1}, {-1, -1, -1}};
@@ -813,6 +649,28 @@ matrix gaussblur(matrix image)
 {
     matrix kernel = {{1 / 16, 2 / 16, 1 / 16}, {2 / 16, 4 / 16, 2 / 16}, {1 / 16, 2 / 16, 1 / 16}};
     return conv2D(image, kernel);
+}
+matrix Bright(matrix R, matrix G, matrix B)
+{
+    matrix luminance(height, vector<double>(width, 0));
+    int count = 0;
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            luminance[i][j] = 0.3 * R[i][j] + 0.59 * G[i][j] + 0.11 * B[i][j];
+        }
+    }
+    double avg, sum = 0;
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            sum += luminance[i][j];
+            count++;
+        }
+    }
+    avg = double(sum) / count;
 }
 int main()
 {
@@ -865,14 +723,20 @@ int main()
     matrix HorizontalFlip = FlipImage(grayImage);
 
     // Working Bilateral Filter
-    Mat gray_image(grayImage.size(), grayImage.at(0).size(), CV_64FC1);
-    for (int i = 0; i < gray_image.rows; ++i)
-        for (int j = 0; j < gray_image.cols; ++j)
-            gray_image.at<double>(i, j) = grayImage.at(i).at(j);
+    // Mat gray_image(ErodedImage.size(), ErodedImage.at(0).size(), CV_64FC1);
+    // for (int i = 0; i < gray_image.rows; ++i)
+    //     for (int j = 0; j < gray_image.cols; ++j)
+    //         gray_image.at<double>(i, j) = ErodedImage.at(i).at(j);
 
-    Mat edges_image(height, width, CV_32F);
-    gray_image.convertTo(gray_image, CV_32F);
-    bilateralFilter(gray_image, edges_image, 3, 3, 10);
+    // Mat bin_image(ErodedImage.size(), ErodedImage.at(0).size(), CV_64FC1);
+    // for (int i = 0; i < gray_image.rows; ++i)
+    //     for (int j = 0; j < gray_image.cols; ++j)
+    //         bin_image.at<double>(i, j) = Binary.at(i).at(j);
+
+    // Mat edges_image(height, width, CV_32F);
+    // erode(gray_image, edges_image, 5);
+    // gray_image.convertTo(gray_image, CV_32F);
+    // bilateralFilter(gray_image, edges_image, 3, 3, 10);
 
     vector<Mat> rgb_image;
     Mat r_img(R.size(), R.at(0).size(), CV_64FC1);
@@ -914,13 +778,76 @@ int main()
 
     // namedWindow("foobar");
     // imshow("foobar", gray_img);
+
+    Mat I(height, width, CV_64FC1);
+    for (int i = 0; i < I.rows; i++)
+    {
+        for (int j = 0; j < I.cols; j++)
+        {
+            I.at<double>(i, j) = double(R[i][j] * 20 + G[i][j] * 40 + B[i][j]) / 61.0;
+        }
+    }
+    Mat C_R(height, width, CV_64FC1);
+    Mat C_G(height, width, CV_64FC1);
+    Mat C_B(height, width, CV_64FC1);
+    for (int i = 0; i < R.size(); i++)
+    {
+        for (int j = 0; j < R[0].size(); j++)
+        {
+            C_R.at<double>(i, j) = R[i][j] / I.at<double>(i, j);
+        }
+    }
+    for (int i = 0; i < G.size(); i++)
+    {
+        for (int j = 0; j < G[0].size(); j++)
+        {
+            C_G.at<double>(i, j) = G[i][j] / I.at<double>(i, j);
+        }
+    }
+    for (int i = 0; i < B.size(); i++)
+    {
+        for (int j = 0; j < B[0].size(); j++)
+        {
+            C_B.at<double>(i, j) = B[i][j] / I.at<double>(i, j);
+        }
+    }
+    Mat L(height, width, CV_64FC1);
+    for (int i = 0; i < I.rows; i++)
+    {
+        for (int j = 0; j < I.cols; j++)
+        {
+            L.at<double>(i, j) = log2(I.at<double>(i, j));
+        }
+    }
+    L.convertTo(L, CV_32F);
+    Mat BiL(height, width, CV_32F);
+    bilateralFilter(L, BiL, 3, 3, 10);
+
+    Mat D(height, width, CV_32F);
+    D = Mat::zeros(height, width, CV_32F);
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            D.at<double>(i, j) = L.at<double>(i, j) - BiL.at<double>(i, j);
+        }
+    }
+    // D.convertTo(D, CV_32F);
     Mat final_image;
     Mat filtered_image;
     merge(rgb_image, final_image);
     resize(final_image, final_image, Size(500, 500));
+
     // resize(edges_img, edges_img, Size(500, 500));
     imshow("RGB", final_image);
-    imshow("Gray", edges_image);
+    imshow("Intensity", I);
+    imshow("Chrome", C_B);
+    imshow("Log", L);
+    imshow("Bilateral", BiL);
+    imshow("Detail", D);
+    // imshow("Gray", gray_image);
+    // imshow("Bin", bin_image);
+    // imshow("Erode", edges_image);
     // imwrite("RGB.jpg", final_image);
     waitKey(0);
 }
