@@ -1,6 +1,27 @@
+/*
+*Author List: Om Doiphode, Kedar Dhamankar
+*Filename: Morphology.cpp
+*Functions: double sum(matrix),
+            matrix multiply(matrix, matrix),
+            matrix vectorSlice(matrix, int, int, int, int),
+            matrix Erosion(matrix),
+            matrix Dilation(matrix),
+            matrix Closing(matrix),
+            matrix Opening(matrix),
+            matrix Gradient(matrix)
+Here, matrix=vector<vector<double>>
+*Global Variables: NONE
+*/
 #include <bits/stdc++.h>
 using namespace std;
 using matrix = vector<vector<double>>;
+/*
+ * Function Name: sum
+ * Input: A -> 2D vector of image
+ * Output: returns the sum of the pixel values
+ * Logic: Calculates the sum by accessing each element of 2D vector
+ * Example Call: sum(image);
+ */
 double sum(matrix A)
 {
     int add = 0;
@@ -13,39 +34,64 @@ double sum(matrix A)
     }
     return add;
 }
-matrix multiply(matrix A, matrix B)
+/*
+ * Function Name: multiply
+ * Input: sliced_image -> A portion (2D vector) extracted from a bigger image, kernel -> a mask(2D vector) used for convolution, morphological operations,etc
+ * Output: returns the product of the two matrices
+ * Logic: The code loops through the rows and columns of the matrix and stores the product of the elements of a row in a temporary vector (temp) and the temporary vector is then pushed to a 2D vector
+ * Example Call: multiply(sliced_image,kernel);
+ */
+
+matrix multiply(matrix sliced_image, matrix kernel)
 {
     matrix C;
-    int n = B.size();
+    int n = kernel.size();
     for (int i = 0; i < n; i++)
     {
         vector<double> temp;
         for (int j = 0; j < n; j++)
         {
-            temp.push_back(A[i][j] * B[i][j]);
+            temp.push_back(sliced_image[i][j] * kernel[i][j]);
         }
         C.push_back(temp);
     }
     return C;
 }
-matrix vectorSlice(matrix &orig, int row_lower, int row_limit, int col_lower, int col_limit)
+/*
+ * Function Name: vectorSlice
+ * Input: image -> 2D vector of image, row_lower: lower row number, row_upper: upper row number, col_lower: lower column number, col_upper: upper column number
+ * Output: returns the sliced image
+ * Logic: Nested for loop is used wherein the outer loop runs from row_lower to row_upper(exclusive) while the inner loop runs from col_lower to col_upper(exclusive).
+ *        The elements of the image are then pushed into a temporary 1D vector and then after the completion of the inner for loop, the temporary vector is pushed into the sliced_image (2D vector)
+ * Example Call: vectorSlice(image,1,3,1,3);
+ */
+matrix vectorSlice(matrix &image, int row_lower, int row_upper, int col_lower, int col_upper)
 {
-    matrix res;
-    for (int i = row_lower; i < row_limit; i++)
+    matrix sliced_image;
+    for (int i = row_lower; i < row_upper; i++)
     {
         vector<double> temp;
-        for (int j = col_lower; j < col_limit; j++)
+        for (int j = col_lower; j < col_upper; j++)
         {
-            temp.push_back(orig[i][j]);
+            temp.push_back(image[i][j]);
         }
-        res.push_back(temp);
+        sliced_image.push_back(temp);
     }
-    return res;
+    return sliced_image;
 }
-// Erosion
-matrix Erosion(matrix img)
+/*
+ * Function Name: Erosion
+ * Input: img -> 2D vector of image (grayscale or binary image), kernel_size -> size of the kernel (must be odd)
+ * Output: returns the eroded image
+ * Logic: A kernel (kernel_size x kernel_size) is slid across the image. If all the pixels under the kernel is 1 then the input pixel will be 1 otherwise it will be 0 if at least one pixel under the kernel is zero.
+ *        Default is a 3x3 kernel.
+ * Example Call: Erosion(image,3);
+ */
+matrix Erosion(matrix img, int kernel_size = 3)
 {
-    matrix kernal = {{1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}};
+    // Creating a 2d vector of size kernel_size x kernel_size filled with 1's
+    matrix kernal(kernel_size, vector<double>(kernel_size, 1));
+    // Initialising an empty image filled with zeros
     matrix new_image(img.size(), vector<double>(img[0].size(), 0));
     int addition = sum(kernal);
     int m = kernal.size(), n = kernal[0].size();
@@ -65,7 +111,13 @@ matrix Erosion(matrix img)
     }
     return new_image;
 }
-
+/*
+ * Function Name: Dilation
+ * Input: img -> 2D vector of image (grayscale or binary image)
+ * Output: returns the dilated image
+ * Logic: A 3x3 kernel is slid across the image. The output is 1 if at least one of the input pixels (under the kernel) is 1. Otherwise, the output is 0.
+ * Example Call: Dilation(image)
+ */
 matrix Dilation(matrix img)
 {
     matrix kernal = {{0, 1, 0}, {1, 1, 1}, {0, 1, 0}};
@@ -93,18 +145,39 @@ matrix Dilation(matrix img)
     }
     return new_image;
 }
+/*
+ * Function Name: Closing
+ * Input: img -> 2D vector of image (grayscale or binary image)
+ * Output: returns the closed image
+ * Logic: First dilation is applied by calling the Dilation function and then Erosion function is called to apply erosion.
+ * Example Call: Closing(image)
+ */
 matrix Closing(matrix image)
 {
     matrix final_image = Erosion(image);
     matrix final_image2 = Dilation(final_image);
     return final_image2;
 }
+/*
+ * Function Name: Opening
+ * Input: img -> 2D vector of image (grayscale or binary image)
+ * Output: returns the opened image
+ * Logic: First erosion is applied by calling the Erosion function and then Dilation function is called to apply dilation.
+ * Example Call: Opening(image)
+ */
 matrix Opening(matrix image)
 {
     matrix final_image = Dilation(image);
     matrix final_image2 = Erosion(final_image);
     return final_image2;
 }
+/*
+ * Function Name: Gradient
+ * Input: img -> 2D vector of image (grayscale or binary image)
+ * Output: returns the gradient of the image
+ * Logic: First the image is dilated and then the original image is eroded. The difference between the dilated and eroded image gives the gradient.
+ * Example Call: Gradient(image)
+ */
 matrix Gradient(matrix image)
 {
     matrix dilated = Dilation(image);

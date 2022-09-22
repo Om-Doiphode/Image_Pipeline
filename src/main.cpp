@@ -1,3 +1,10 @@
+/*
+ *Author List: Om Doiphode, Kedar Dhamankar
+ *Filename: main.cpp
+ *Functions: main(int,char**)
+ *Global Variable: NONE
+ */
+
 #include <bits/stdc++.h>
 #include <cstdio>
 #include <opencv2/opencv.hpp>
@@ -13,8 +20,17 @@
 #include "Morphology.h"
 using namespace cv;
 using namespace std;
-string filename;
 using matrix = vector<vector<double>>;
+/*
+* Function Name: main
+* Input: char **argv
+         argv[1] -> value for gamma
+         argv[2] -> path to the image file
+* Output: int to inform the caller that the program exited correctly or incorrectly (C code standard)
+* Logic:  Ask the user for the path to the image file, read the image file and store its pixel values in a .txt file.
+          Make a 2D vector of image from the stored pixel values and apply debayering, White Balance, gamma Correction algorithms.
+*Example Call: Called automatically by the Operating System
+*/
 int main(int argc, char **argv)
 {
     string filename = argv[2];
@@ -27,6 +43,7 @@ int main(int argc, char **argv)
     double buffer;
     int i = 0;
     vector<double> temp;
+    // Making an empty image filled with zeros
     matrix image(height + 4, vector<double>(width + 4, 0));
     while (inputFile)
     {
@@ -89,8 +106,18 @@ int main(int argc, char **argv)
     Mat final_image;
     Mat filtered_image;
     cv::merge(rgb_image, final_image);
-    cv::resize(final_image, final_image, Size(500, 500));
+    cv::resize(final_image, final_image, Size(1000, 1000));
 
     imshow("Output", final_image);
+
+    // matrix grayImage = cvtGray(R, G, B);
+    // matrix Binary = cvtBinary(grayImage);
+    // matrix ErodedImage = Erosion(grayImage, 7);
+
+    // Mat erode_img(ErodedImage.size(), ErodedImage.at(0).size(), CV_64FC1);
+    // for (int i = 0; i < ErodedImage.size(); ++i)
+    //     for (int j = 0; j < ErodedImage[0].size(); ++j)
+    //         erode_img.at<double>(i, j) = ErodedImage.at(i).at(j);
+    // imshow("Erosion", erode_img);
     waitKey(0);
 }

@@ -1,32 +1,71 @@
+/*
+*Author List: Om Doiphode, Kedar Dhamankar
+*Filename: debayering.cpp
+*Functions: minELe(matrix),
+            maxEle(matrix),
+            conv2D(matrix),
+            G_at_B_R(matrix),matrix RB_at_G_in_RBrow_BRcol(matrix),
+            matrix RB_at_G_in_BRrow_RBcol(matrix),
+            matrix RB_at_BR(matrix),
+            vector<vector<vector<double>>> autoAdjust(matrix, matrix, matrix, int, int),
+            vector<vector<vector<double>>> debayering(matrix, int, int)
+Here, matrix=vector<vector<double>>
+*Global Variables: NONE
+*/
 #include <bits/stdc++.h>
 #include "ColorSpace.h"
+#include "WB.h"
 using namespace std;
 using matrix = vector<vector<double>>;
-int minEle(matrix image)
+/*
+ * Function Name: minEle
+ * Input: image -> 2D vector (single channel)
+ * Output: returns the min pixel values in an image
+ * Logic: Computes the minimum element in a particular row and then stored in a variable minEleInRow. \
+ *        Result contains the maximum possible element.
+ *        The result is then compared with minEleInRow and whichever is minimum, that value is returned.
+ * Example Call: minEle(image)
+ */
+double minEle(matrix image)
 {
-    int result = std::numeric_limits<int>::max();
+    double result = std::numeric_limits<int>::max();
     for (const auto &row : image)
     {
-        int minElemInRow = *std::min_element(row.begin(), row.end());
+        double minElemInRow = *std::min_element(row.begin(), row.end());
         result = std::min(result, minElemInRow);
     }
     return result;
 }
+/*
+ * Function Name: maxEle
+ * Input: image -> 2D vector (single channel)
+ * Output: returns the max pixel values in an image
+ * Logic: Computes the maximum element in a particular row and then stored in a variable maxEleInRow.
+ *        Result contains the minimum possible element.
+ *        The result is then compared with maxEleInRow and whichever is maximum, that value is returned.
+ * Example Call: maxEle(image)
+ */
 double maxEle(matrix image)
 {
     double result = std::numeric_limits<int>::min();
     for (const auto &row : image)
     {
-        double minElemInRow = *std::max_element(row.begin(), row.end());
-        result = std::max(result, minElemInRow);
+        double maxElemInRow = *std::max_element(row.begin(), row.end());
+        result = std::max(result, maxElemInRow);
     }
     return result;
 }
+/*
+ * Function Name: conv2D
+ * Input: image -> 2D vector (single channel), kernal -> mask (2D vector)
+ * Output: returns the image which is convoluted with the mask (kernel)
+ * Example Call: conv2D(image,kernel)
+ */
 matrix conv2D(matrix &img, matrix &kernal)
 {
-    int out_h = img.size() - kernal.size() + 1;
-    int out_w = img[0].size() - kernal[0].size() + 1;
-    matrix ret(out_h, vector<double>(out_w, 0));
+    int out_h = img.size() - kernal.size() + 1;       // Height of the output image
+    int out_w = img[0].size() - kernal[0].size() + 1; // Width of the output image
+    matrix ret(out_h, vector<double>(out_w, 0));      // Output image of size (width x height) filled with zeros
     for (int i = 0; i < out_h; i++)
     {
         for (int j = 0; j < out_w; j++)
@@ -46,21 +85,48 @@ matrix conv2D(matrix &img, matrix &kernal)
     }
     return ret;
 }
+/*
+ * Function Name: G_at_B_R
+ * Input: image -> 2D vector (single channel)
+ * Output: Computes the contribution of green component at Blue and Red Pixels
+ * Example Call: G_at_BR(image)
+ */
 matrix G_at_BR(matrix &image)
 {
     matrix kernel = {{0.0, 0.0, -1.0, 0.0, 0.0}, {0.0, 0.0, 2.0, 0.0, 0.0}, {-1.0, 2.0, 4.0, 2.0, -1.0}, {0.0, 0.0, 2.0, 0.0, 0.0}, {0.0, 0.0, -1.0, 0.0, 0.0}};
     return conv2D(image, kernel);
 }
+/*
+ * Function Name: RB_at_G_in_RBrow_BRcol
+ * Input: image -> 2D vector (single channel)
+ * Output: Computes the contribution of red pixel at green in R row and B column
+ *         and also that of blue pixel at green pixel in B row and R column.
+ * Example Call: RB_at_G_in_RBrow_BRcol(image)
+ */
 matrix RB_at_G_in_RBrow_BRcol(matrix &image)
 {
     matrix kernel = {{0, 0, 0.5, 0, 0}, {0, -1, 0, -1, 0}, {-1, 4, 5, 4, -1}, {0, -1, 0, -1, 0}, {0, 0, 0.5, 0, 0}};
     return conv2D(image, kernel);
 }
+/*
+ * Function Name: RB_at_G_in_BRrow_RBcol
+ * Input: image -> 2D vector (single channel)
+ * Output: Computes the contribution of blue pixel at green in B row and R column
+ *         and also that of blue pixel at green pixel in R row and B column.
+ * Example Call: RB_at_G_in_BRrow_RBcol(image)
+ */
 matrix RB_at_G_in_BRrow_RBcol(matrix &image)
 {
     matrix kernel = {{0, 0, -1, 0, 0}, {0, -1, 4, -1, 0}, {0.5, 0, 5, 0, 0.5}, {0, -1, 4, -1, 0}, {0, 0, -1, 0, 0}};
     return conv2D(image, kernel);
 }
+/*
+ * Function Name: RB_at_BR
+ * Input: image -> 2D vector (single channel)
+ * Output: Computes the contribution of red pixel at blue in B row and B column
+ *         and also that of blue pixel at red pixel in R row and R column.
+ * Example Call: RB_at_BR(image)
+ */
 matrix RB_at_BR(matrix &image)
 {
     matrix kernel = {{0, 0, -1.5, 0, 0}, {0, 2, 0, 2, 0}, {-1.5, 0, 6, 0, -1.5}, {0, 2, 0, 2, 0}, {0, 0, -1.5, 0, 0}};
@@ -74,13 +140,13 @@ vector<vector<vector<double>>> autoAdjust(matrix R, matrix G, matrix B, int heig
     matrix O_G(height, vector<double>(width, 0));
     matrix O_B(height, vector<double>(width, 0));
 
-    // # calculate stats
+    // calculate stats
     double alow = minEle(R);
     double ahigh = maxEle(R);
     double amax = 255;
     double amin = 0;
 
-    // #access each pixel, and auto adjust
+    // access each pixel, and auto adjust
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
@@ -116,6 +182,7 @@ vector<vector<vector<double>>> autoAdjust(matrix R, matrix G, matrix B, int heig
 }
 vector<vector<vector<double>>> debayering(matrix image, int height, int width)
 {
+    image = scale(image);
     matrix R(height, vector<double>(width, 0));
     matrix G(height, vector<double>(width, 0));
     matrix B(height, vector<double>(width, 0));
@@ -229,13 +296,15 @@ vector<vector<vector<double>>> debayering(matrix image, int height, int width)
         }
     }
     vector<vector<vector<double>>> debayered_image;
-    vector<vector<vector<double>>> combine = autoAdjust(R, G, B, height, width);
-    R = combine[0];
-    G = combine[1];
-    B = combine[2];
+    // vector<vector<vector<double>>> combine = autoAdjust(R, G, B, height, width);
+    // R = combine[0];
+    // G = combine[1];
+    // B = combine[2];
 
+    // RGB to sRGB
     vector<vector<vector<double>>> colorCorrectedImage = ColorConv(R, G, B);
 
+    // Making a 3D image
     debayered_image.push_back(colorCorrectedImage[0]);
     debayered_image.push_back(colorCorrectedImage[1]);
     debayered_image.push_back(colorCorrectedImage[2]);

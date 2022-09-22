@@ -1,3 +1,11 @@
+/*
+ *Author List: Om Doiphode, Kedar Dhamankar
+ *Filename: ColorSpace.cpp
+ *Functions: double sumOfRows(vector<double>),
+             matrix inverse(matrix),
+             vector<vector<vector<double>>> ColorConv(matrix, matrix, matrix)
+ *Global Variable: NONE
+ */
 #include <bits/stdc++.h>
 using namespace std;
 using matrix = vector<vector<double>>;
@@ -74,6 +82,36 @@ vector<vector<vector<double>>> ColorConv(matrix R, matrix G, matrix B)
         for (int j = 0; j < B[0].size(); j++)
         {
             B[i][j] = cam2rgb[2][0] * R[i][j] + cam2rgb[2][1] * G[i][j] + cam2rgb[2][2] * B[i][j];
+        }
+    }
+    for (int i = 0; i < R.size(); i++)
+    {
+        for (int j = 0; j < R[0].size(); j++)
+        {
+            if (R[i][j] > 1)
+                R[i][j] = 1;
+            else if (R[i][j] < 0)
+                R[i][j] = 0;
+        }
+    }
+    for (int i = 0; i < G.size(); i++)
+    {
+        for (int j = 0; j < G[0].size(); j++)
+        {
+            if (G[i][j] > 1)
+                G[i][j] = 1;
+            else if (G[i][j] < 0)
+                G[i][j] = 0;
+        }
+    }
+    for (int i = 0; i < B.size(); i++)
+    {
+        for (int j = 0; j < B[0].size(); j++)
+        {
+            if (B[i][j] > 1)
+                B[i][j] = 1;
+            else if (B[i][j] < 0)
+                B[i][j] = 0;
         }
     }
     vector<vector<vector<double>>> final_image;

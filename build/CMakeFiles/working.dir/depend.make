@@ -15,6 +15,7 @@ CMakeFiles/working.dir/WB.cpp.o: /home/om/Documents/Image_Pipeline/include/debay
 CMakeFiles/working.dir/WB.cpp.o: /home/om/Documents/Image_Pipeline/src/WB.cpp
 
 CMakeFiles/working.dir/debayering.cpp.o: /home/om/Documents/Image_Pipeline/include/ColorSpace.h
+CMakeFiles/working.dir/debayering.cpp.o: /home/om/Documents/Image_Pipeline/include/WB.h
 CMakeFiles/working.dir/debayering.cpp.o: /home/om/Documents/Image_Pipeline/src/debayering.cpp
 
 CMakeFiles/working.dir/main.cpp.o: /home/om/Documents/Image_Pipeline/include/ColorSpace.h

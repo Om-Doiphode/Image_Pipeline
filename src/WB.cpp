@@ -2,7 +2,13 @@
 #include "../include/debayering.h"
 using namespace std;
 using matrix = vector<vector<double>>;
-
+/*
+ * Function Name: averageOfPixels
+ * Input: image -> 2D vector of image
+ * Output: returns the mean of the pixel values
+ * Logic: average=(sum of pixel values)/total number of pixel values
+ * Example Call: averageOfPixels(image);
+ */
 double averageOfPixels(matrix image)
 {
     double average, sum = 0;
@@ -31,6 +37,14 @@ matrix scale(matrix image, double a = 0, double b = 1)
     }
     return result;
 }
+/*
+ * Function Name: maxNumber
+ * Input: a,b,c-> three numbers from which the max number needs to be found out
+ * Output: returns the largest number of the three numbers
+ * Logic: If the first number is greater than second and third number then return the first number else if the second number is greater than first and third number then return second number otherwise return third number
+ * Example Call: maxNumber(5,2,10);
+ *
+ */
 double maxNumber(double a, double b, double c)
 {
     if (a >= b && a >= c)
@@ -39,6 +53,18 @@ double maxNumber(double a, double b, double c)
         return b;
     return c;
 }
+/*
+* Function Name: whiteBalance
+* Input:image -> 2D vector of images,
+        avgRed-> average of red pixel values,
+        avgGreen-> average of green pixel values,
+        avgBlue -> average of blue pixel values.
+* Output: returns the normalised image
+* Logic: Uses the Gray World Algorithm
+        produces an estimate of illumination by computing the mean of each channel of the image.
+* Example Call: whiteBalance(image,34,32,34);
+*
+*/
 matrix whiteBalance(matrix image, double avgRed, double avgGreen, double avgBlue)
 {
     double avgi = averageOfPixels(image);
