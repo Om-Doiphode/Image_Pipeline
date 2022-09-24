@@ -177,6 +177,60 @@ Conversion.cpp.s:
 	$(MAKE) -f CMakeFiles/working.dir/build.make CMakeFiles/working.dir/Conversion.cpp.s
 .PHONY : Conversion.cpp.s
 
+Edges.o: Edges.cpp.o
+
+.PHONY : Edges.o
+
+# target to build an object file
+Edges.cpp.o:
+	$(MAKE) -f CMakeFiles/working.dir/build.make CMakeFiles/working.dir/Edges.cpp.o
+.PHONY : Edges.cpp.o
+
+Edges.i: Edges.cpp.i
+
+.PHONY : Edges.i
+
+# target to preprocess a source file
+Edges.cpp.i:
+	$(MAKE) -f CMakeFiles/working.dir/build.make CMakeFiles/working.dir/Edges.cpp.i
+.PHONY : Edges.cpp.i
+
+Edges.s: Edges.cpp.s
+
+.PHONY : Edges.s
+
+# target to generate assembly for a file
+Edges.cpp.s:
+	$(MAKE) -f CMakeFiles/working.dir/build.make CMakeFiles/working.dir/Edges.cpp.s
+.PHONY : Edges.cpp.s
+
+Filters.o: Filters.cpp.o
+
+.PHONY : Filters.o
+
+# target to build an object file
+Filters.cpp.o:
+	$(MAKE) -f CMakeFiles/working.dir/build.make CMakeFiles/working.dir/Filters.cpp.o
+.PHONY : Filters.cpp.o
+
+Filters.i: Filters.cpp.i
+
+.PHONY : Filters.i
+
+# target to preprocess a source file
+Filters.cpp.i:
+	$(MAKE) -f CMakeFiles/working.dir/build.make CMakeFiles/working.dir/Filters.cpp.i
+.PHONY : Filters.cpp.i
+
+Filters.s: Filters.cpp.s
+
+.PHONY : Filters.s
+
+# target to generate assembly for a file
+Filters.cpp.s:
+	$(MAKE) -f CMakeFiles/working.dir/build.make CMakeFiles/working.dir/Filters.cpp.s
+.PHONY : Filters.cpp.s
+
 Gamma.o: Gamma.cpp.o
 
 .PHONY : Gamma.o
@@ -203,33 +257,6 @@ Gamma.s: Gamma.cpp.s
 Gamma.cpp.s:
 	$(MAKE) -f CMakeFiles/working.dir/build.make CMakeFiles/working.dir/Gamma.cpp.s
 .PHONY : Gamma.cpp.s
-
-MedianFilter.o: MedianFilter.cpp.o
-
-.PHONY : MedianFilter.o
-
-# target to build an object file
-MedianFilter.cpp.o:
-	$(MAKE) -f CMakeFiles/working.dir/build.make CMakeFiles/working.dir/MedianFilter.cpp.o
-.PHONY : MedianFilter.cpp.o
-
-MedianFilter.i: MedianFilter.cpp.i
-
-.PHONY : MedianFilter.i
-
-# target to preprocess a source file
-MedianFilter.cpp.i:
-	$(MAKE) -f CMakeFiles/working.dir/build.make CMakeFiles/working.dir/MedianFilter.cpp.i
-.PHONY : MedianFilter.cpp.i
-
-MedianFilter.s: MedianFilter.cpp.s
-
-.PHONY : MedianFilter.s
-
-# target to generate assembly for a file
-MedianFilter.cpp.s:
-	$(MAKE) -f CMakeFiles/working.dir/build.make CMakeFiles/working.dir/MedianFilter.cpp.s
-.PHONY : MedianFilter.cpp.s
 
 Morphology.o: Morphology.cpp.o
 
@@ -354,12 +381,15 @@ help:
 	@echo "... Conversion.o"
 	@echo "... Conversion.i"
 	@echo "... Conversion.s"
+	@echo "... Edges.o"
+	@echo "... Edges.i"
+	@echo "... Edges.s"
+	@echo "... Filters.o"
+	@echo "... Filters.i"
+	@echo "... Filters.s"
 	@echo "... Gamma.o"
 	@echo "... Gamma.i"
 	@echo "... Gamma.s"
-	@echo "... MedianFilter.o"
-	@echo "... MedianFilter.i"
-	@echo "... MedianFilter.s"
 	@echo "... Morphology.o"
 	@echo "... Morphology.i"
 	@echo "... Morphology.s"

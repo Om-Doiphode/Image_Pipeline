@@ -122,22 +122,9 @@ CMakeFiles/working.dir/ColorSpace.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/working.dir/ColorSpace.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/om/Documents/Image_Pipeline/src/ColorSpace.cpp -o CMakeFiles/working.dir/ColorSpace.cpp.s
 
-CMakeFiles/working.dir/MedianFilter.cpp.o: CMakeFiles/working.dir/flags.make
-CMakeFiles/working.dir/MedianFilter.cpp.o: /home/om/Documents/Image_Pipeline/src/MedianFilter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/om/Documents/Image_Pipeline/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/working.dir/MedianFilter.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/working.dir/MedianFilter.cpp.o -c /home/om/Documents/Image_Pipeline/src/MedianFilter.cpp
-
-CMakeFiles/working.dir/MedianFilter.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/working.dir/MedianFilter.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/om/Documents/Image_Pipeline/src/MedianFilter.cpp > CMakeFiles/working.dir/MedianFilter.cpp.i
-
-CMakeFiles/working.dir/MedianFilter.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/working.dir/MedianFilter.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/om/Documents/Image_Pipeline/src/MedianFilter.cpp -o CMakeFiles/working.dir/MedianFilter.cpp.s
-
 CMakeFiles/working.dir/Conversion.cpp.o: CMakeFiles/working.dir/flags.make
 CMakeFiles/working.dir/Conversion.cpp.o: /home/om/Documents/Image_Pipeline/src/Conversion.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/om/Documents/Image_Pipeline/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/working.dir/Conversion.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/om/Documents/Image_Pipeline/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/working.dir/Conversion.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/working.dir/Conversion.cpp.o -c /home/om/Documents/Image_Pipeline/src/Conversion.cpp
 
 CMakeFiles/working.dir/Conversion.cpp.i: cmake_force
@@ -150,7 +137,7 @@ CMakeFiles/working.dir/Conversion.cpp.s: cmake_force
 
 CMakeFiles/working.dir/Morphology.cpp.o: CMakeFiles/working.dir/flags.make
 CMakeFiles/working.dir/Morphology.cpp.o: /home/om/Documents/Image_Pipeline/src/Morphology.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/om/Documents/Image_Pipeline/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/working.dir/Morphology.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/om/Documents/Image_Pipeline/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/working.dir/Morphology.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/working.dir/Morphology.cpp.o -c /home/om/Documents/Image_Pipeline/src/Morphology.cpp
 
 CMakeFiles/working.dir/Morphology.cpp.i: cmake_force
@@ -161,6 +148,32 @@ CMakeFiles/working.dir/Morphology.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/working.dir/Morphology.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/om/Documents/Image_Pipeline/src/Morphology.cpp -o CMakeFiles/working.dir/Morphology.cpp.s
 
+CMakeFiles/working.dir/Edges.cpp.o: CMakeFiles/working.dir/flags.make
+CMakeFiles/working.dir/Edges.cpp.o: /home/om/Documents/Image_Pipeline/src/Edges.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/om/Documents/Image_Pipeline/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/working.dir/Edges.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/working.dir/Edges.cpp.o -c /home/om/Documents/Image_Pipeline/src/Edges.cpp
+
+CMakeFiles/working.dir/Edges.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/working.dir/Edges.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/om/Documents/Image_Pipeline/src/Edges.cpp > CMakeFiles/working.dir/Edges.cpp.i
+
+CMakeFiles/working.dir/Edges.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/working.dir/Edges.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/om/Documents/Image_Pipeline/src/Edges.cpp -o CMakeFiles/working.dir/Edges.cpp.s
+
+CMakeFiles/working.dir/Filters.cpp.o: CMakeFiles/working.dir/flags.make
+CMakeFiles/working.dir/Filters.cpp.o: /home/om/Documents/Image_Pipeline/src/Filters.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/om/Documents/Image_Pipeline/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/working.dir/Filters.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/working.dir/Filters.cpp.o -c /home/om/Documents/Image_Pipeline/src/Filters.cpp
+
+CMakeFiles/working.dir/Filters.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/working.dir/Filters.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/om/Documents/Image_Pipeline/src/Filters.cpp > CMakeFiles/working.dir/Filters.cpp.i
+
+CMakeFiles/working.dir/Filters.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/working.dir/Filters.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/om/Documents/Image_Pipeline/src/Filters.cpp -o CMakeFiles/working.dir/Filters.cpp.s
+
 # Object files for target working
 working_OBJECTS = \
 "CMakeFiles/working.dir/main.cpp.o" \
@@ -168,9 +181,10 @@ working_OBJECTS = \
 "CMakeFiles/working.dir/WB.cpp.o" \
 "CMakeFiles/working.dir/Gamma.cpp.o" \
 "CMakeFiles/working.dir/ColorSpace.cpp.o" \
-"CMakeFiles/working.dir/MedianFilter.cpp.o" \
 "CMakeFiles/working.dir/Conversion.cpp.o" \
-"CMakeFiles/working.dir/Morphology.cpp.o"
+"CMakeFiles/working.dir/Morphology.cpp.o" \
+"CMakeFiles/working.dir/Edges.cpp.o" \
+"CMakeFiles/working.dir/Filters.cpp.o"
 
 # External object files for target working
 working_EXTERNAL_OBJECTS =
@@ -180,9 +194,10 @@ working_EXTERNAL_OBJECTS =
 /home/om/Documents/Image_Pipeline/bin/working: CMakeFiles/working.dir/WB.cpp.o
 /home/om/Documents/Image_Pipeline/bin/working: CMakeFiles/working.dir/Gamma.cpp.o
 /home/om/Documents/Image_Pipeline/bin/working: CMakeFiles/working.dir/ColorSpace.cpp.o
-/home/om/Documents/Image_Pipeline/bin/working: CMakeFiles/working.dir/MedianFilter.cpp.o
 /home/om/Documents/Image_Pipeline/bin/working: CMakeFiles/working.dir/Conversion.cpp.o
 /home/om/Documents/Image_Pipeline/bin/working: CMakeFiles/working.dir/Morphology.cpp.o
+/home/om/Documents/Image_Pipeline/bin/working: CMakeFiles/working.dir/Edges.cpp.o
+/home/om/Documents/Image_Pipeline/bin/working: CMakeFiles/working.dir/Filters.cpp.o
 /home/om/Documents/Image_Pipeline/bin/working: CMakeFiles/working.dir/build.make
 /home/om/Documents/Image_Pipeline/bin/working: /usr/local/lib/libopencv_gapi.so.4.6.0
 /home/om/Documents/Image_Pipeline/bin/working: /usr/local/lib/libopencv_highgui.so.4.6.0
@@ -200,7 +215,7 @@ working_EXTERNAL_OBJECTS =
 /home/om/Documents/Image_Pipeline/bin/working: /usr/local/lib/libopencv_imgproc.so.4.6.0
 /home/om/Documents/Image_Pipeline/bin/working: /usr/local/lib/libopencv_core.so.4.6.0
 /home/om/Documents/Image_Pipeline/bin/working: CMakeFiles/working.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/om/Documents/Image_Pipeline/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable /home/om/Documents/Image_Pipeline/bin/working"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/om/Documents/Image_Pipeline/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable /home/om/Documents/Image_Pipeline/bin/working"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/working.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

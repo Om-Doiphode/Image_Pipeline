@@ -14,6 +14,18 @@ bits/stdc++.h
 bits/stdc++.h
 -
 
+/home/om/Documents/Image_Pipeline/include/Edges.h
+bits/stdc++.h
+-
+debayering.h
+/home/om/Documents/Image_Pipeline/include/debayering.h
+Conversion.h
+/home/om/Documents/Image_Pipeline/include/Conversion.h
+
+/home/om/Documents/Image_Pipeline/include/Filters.h
+bits/stdc++.h
+-
+
 /home/om/Documents/Image_Pipeline/include/Gamma.h
 bits/stdc++.h
 -
@@ -55,6 +67,10 @@ Conversion.h
 /home/om/Documents/Image_Pipeline/src/Conversion.h
 Morphology.h
 /home/om/Documents/Image_Pipeline/src/Morphology.h
+Filters.h
+/home/om/Documents/Image_Pipeline/src/Filters.h
+Edges.h
+/home/om/Documents/Image_Pipeline/src/Edges.h
 
 /usr/local/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp

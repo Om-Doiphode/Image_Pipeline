@@ -13,8 +13,10 @@ Here, matrix=vector<vector<double>>
 *Global Variables: NONE
 */
 #include <bits/stdc++.h>
+#include <math.h>
 #include "ColorSpace.h"
 #include "WB.h"
+#include "Conversion.h"
 using namespace std;
 using matrix = vector<vector<double>>;
 /*
@@ -61,7 +63,7 @@ double maxEle(matrix image)
  * Output: returns the image which is convoluted with the mask (kernel)
  * Example Call: conv2D(image,kernel)
  */
-matrix conv2D(matrix &img, matrix &kernal)
+matrix conv2D(matrix img, matrix kernal)
 {
     int out_h = img.size() - kernal.size() + 1;       // Height of the output image
     int out_w = img[0].size() - kernal[0].size() + 1; // Width of the output image

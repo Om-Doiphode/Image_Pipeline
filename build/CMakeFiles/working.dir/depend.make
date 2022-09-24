@@ -5,9 +5,14 @@ CMakeFiles/working.dir/ColorSpace.cpp.o: /home/om/Documents/Image_Pipeline/src/C
 
 CMakeFiles/working.dir/Conversion.cpp.o: /home/om/Documents/Image_Pipeline/src/Conversion.cpp
 
-CMakeFiles/working.dir/Gamma.cpp.o: /home/om/Documents/Image_Pipeline/src/Gamma.cpp
+CMakeFiles/working.dir/Edges.cpp.o: /home/om/Documents/Image_Pipeline/include/Conversion.h
+CMakeFiles/working.dir/Edges.cpp.o: /home/om/Documents/Image_Pipeline/include/debayering.h
+CMakeFiles/working.dir/Edges.cpp.o: /home/om/Documents/Image_Pipeline/src/Edges.cpp
 
-CMakeFiles/working.dir/MedianFilter.cpp.o: /home/om/Documents/Image_Pipeline/src/MedianFilter.cpp
+CMakeFiles/working.dir/Filters.cpp.o: /home/om/Documents/Image_Pipeline/include/debayering.h
+CMakeFiles/working.dir/Filters.cpp.o: /home/om/Documents/Image_Pipeline/src/Filters.cpp
+
+CMakeFiles/working.dir/Gamma.cpp.o: /home/om/Documents/Image_Pipeline/src/Gamma.cpp
 
 CMakeFiles/working.dir/Morphology.cpp.o: /home/om/Documents/Image_Pipeline/src/Morphology.cpp
 
@@ -15,11 +20,14 @@ CMakeFiles/working.dir/WB.cpp.o: /home/om/Documents/Image_Pipeline/include/debay
 CMakeFiles/working.dir/WB.cpp.o: /home/om/Documents/Image_Pipeline/src/WB.cpp
 
 CMakeFiles/working.dir/debayering.cpp.o: /home/om/Documents/Image_Pipeline/include/ColorSpace.h
+CMakeFiles/working.dir/debayering.cpp.o: /home/om/Documents/Image_Pipeline/include/Conversion.h
 CMakeFiles/working.dir/debayering.cpp.o: /home/om/Documents/Image_Pipeline/include/WB.h
 CMakeFiles/working.dir/debayering.cpp.o: /home/om/Documents/Image_Pipeline/src/debayering.cpp
 
 CMakeFiles/working.dir/main.cpp.o: /home/om/Documents/Image_Pipeline/include/ColorSpace.h
 CMakeFiles/working.dir/main.cpp.o: /home/om/Documents/Image_Pipeline/include/Conversion.h
+CMakeFiles/working.dir/main.cpp.o: /home/om/Documents/Image_Pipeline/include/Edges.h
+CMakeFiles/working.dir/main.cpp.o: /home/om/Documents/Image_Pipeline/include/Filters.h
 CMakeFiles/working.dir/main.cpp.o: /home/om/Documents/Image_Pipeline/include/Gamma.h
 CMakeFiles/working.dir/main.cpp.o: /home/om/Documents/Image_Pipeline/include/Morphology.h
 CMakeFiles/working.dir/main.cpp.o: /home/om/Documents/Image_Pipeline/include/WB.h

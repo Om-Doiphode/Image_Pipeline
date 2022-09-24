@@ -6,8 +6,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/om/Documents/Image_Pipeline/src/ColorSpace.cpp" "/home/om/Documents/Image_Pipeline/build/CMakeFiles/working.dir/ColorSpace.cpp.o"
   "/home/om/Documents/Image_Pipeline/src/Conversion.cpp" "/home/om/Documents/Image_Pipeline/build/CMakeFiles/working.dir/Conversion.cpp.o"
+  "/home/om/Documents/Image_Pipeline/src/Edges.cpp" "/home/om/Documents/Image_Pipeline/build/CMakeFiles/working.dir/Edges.cpp.o"
+  "/home/om/Documents/Image_Pipeline/src/Filters.cpp" "/home/om/Documents/Image_Pipeline/build/CMakeFiles/working.dir/Filters.cpp.o"
   "/home/om/Documents/Image_Pipeline/src/Gamma.cpp" "/home/om/Documents/Image_Pipeline/build/CMakeFiles/working.dir/Gamma.cpp.o"
-  "/home/om/Documents/Image_Pipeline/src/MedianFilter.cpp" "/home/om/Documents/Image_Pipeline/build/CMakeFiles/working.dir/MedianFilter.cpp.o"
   "/home/om/Documents/Image_Pipeline/src/Morphology.cpp" "/home/om/Documents/Image_Pipeline/build/CMakeFiles/working.dir/Morphology.cpp.o"
   "/home/om/Documents/Image_Pipeline/src/WB.cpp" "/home/om/Documents/Image_Pipeline/build/CMakeFiles/working.dir/WB.cpp.o"
   "/home/om/Documents/Image_Pipeline/src/debayering.cpp" "/home/om/Documents/Image_Pipeline/build/CMakeFiles/working.dir/debayering.cpp.o"
