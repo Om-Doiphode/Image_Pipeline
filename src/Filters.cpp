@@ -7,6 +7,7 @@
  */
 #include <bits/stdc++.h>
 #include "debayering.h"
+#include "WB.h"
 using namespace std;
 using matrix = vector<vector<double>>;
 /*
@@ -34,6 +35,7 @@ matrix filter(matrix image)
     }
     return new_image;
 }
+
 matrix meanFilter(matrix image, int kernel_size = 3)
 {
     matrix kernel(kernel_size, vector<double>(kernel_size, 0));
@@ -44,7 +46,14 @@ matrix meanFilter(matrix image, int kernel_size = 3)
             kernel[i][j] = 1 / pow(kernel_size, 2);
         }
     }
-    return conv2D(image, kernel);
+    matrix res(image.size(), vector<double>(image[0].size(), 0));
+    for (int i = 1; i < image.size() - 1; i++)
+        for (int j = 1; j < image[0].size() - 1; j++)
+        {
+            double temp = image[i - 1][j - 1] * kernel[0][0] + image[i - 1][j] * kernel[0][1] + image[i - 1][j + 1] * kernel[0][2] + image[i][j - 1] * kernel[1][0] + image[i][j] * kernel[1][1] + image[i][j + 1] * kernel[1][2] + image[i + 1][j - 1] * kernel[2][0] + image[i + 1][j] * kernel[2][1] + image[i + 1][j + 1] * kernel[2][2];
+            res[i][j] = temp;
+        }
+    return res;
 }
 // Function to create Gaussian filter
 matrix gaussianFilterCreation(int kernel_size = 3)
@@ -77,5 +86,12 @@ matrix gaussianFilterCreation(int kernel_size = 3)
 matrix gaussianFilter(matrix image, int kernel_size = 3)
 {
     matrix kernel = gaussianFilterCreation(kernel_size);
-    return conv2D(image, kernel);
+    matrix res(image.size(), vector<double>(image[0].size(), 0));
+    for (int i = 1; i < image.size() - 1; i++)
+        for (int j = 1; j < image[0].size() - 1; j++)
+        {
+            double temp = image[i - 1][j - 1] * kernel[0][0] + image[i - 1][j] * kernel[0][1] + image[i - 1][j + 1] * kernel[0][2] + image[i][j - 1] * kernel[1][0] + image[i][j] * kernel[1][1] + image[i][j + 1] * kernel[1][2] + image[i + 1][j - 1] * kernel[2][0] + image[i + 1][j] * kernel[2][1] + image[i + 1][j + 1] * kernel[2][2];
+            res[i][j] = temp;
+        }
+    return res;
 }

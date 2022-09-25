@@ -57,6 +57,7 @@ double maxEle(matrix image)
     }
     return result;
 }
+
 /*
  * Function Name: conv2D
  * Input: image -> 2D vector (single channel), kernal -> mask (2D vector)
@@ -134,6 +135,7 @@ matrix RB_at_BR(matrix &image)
     matrix kernel = {{0, 0, -1.5, 0, 0}, {0, 2, 0, 2, 0}, {-1.5, 0, 6, 0, -1.5}, {0, 2, 0, 2, 0}, {0, 0, -1.5, 0, 0}};
     return conv2D(image, kernel);
 }
+
 vector<vector<vector<double>>> autoAdjust(matrix R, matrix G, matrix B, int height, int width)
 {
     vector<vector<vector<double>>> new_image;
@@ -182,6 +184,15 @@ vector<vector<vector<double>>> autoAdjust(matrix R, matrix G, matrix B, int heig
     new_image.push_back(O_B);
     return new_image;
 }
+/*
+ * Function Name: debayering
+ * Input: image -> 2D vector (single channel)
+ *        height -> height of the input image
+ *        width -> width of the input image
+ * Output: Returns the debayered image
+ * Logic: Malvar He Cutler Algorithm
+ * Example Call: debayering(image,640,480)
+ */
 vector<vector<vector<double>>> debayering(matrix image, int height, int width)
 {
     image = scale(image);

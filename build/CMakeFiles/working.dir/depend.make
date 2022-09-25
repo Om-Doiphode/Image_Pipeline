@@ -3,12 +3,15 @@
 
 CMakeFiles/working.dir/ColorSpace.cpp.o: /home/om/Documents/Image_Pipeline/src/ColorSpace.cpp
 
+CMakeFiles/working.dir/Conversion.cpp.o: /home/om/Documents/Image_Pipeline/include/WB.h
+CMakeFiles/working.dir/Conversion.cpp.o: /home/om/Documents/Image_Pipeline/include/debayering.h
 CMakeFiles/working.dir/Conversion.cpp.o: /home/om/Documents/Image_Pipeline/src/Conversion.cpp
 
 CMakeFiles/working.dir/Edges.cpp.o: /home/om/Documents/Image_Pipeline/include/Conversion.h
 CMakeFiles/working.dir/Edges.cpp.o: /home/om/Documents/Image_Pipeline/include/debayering.h
 CMakeFiles/working.dir/Edges.cpp.o: /home/om/Documents/Image_Pipeline/src/Edges.cpp
 
+CMakeFiles/working.dir/Filters.cpp.o: /home/om/Documents/Image_Pipeline/include/WB.h
 CMakeFiles/working.dir/Filters.cpp.o: /home/om/Documents/Image_Pipeline/include/debayering.h
 CMakeFiles/working.dir/Filters.cpp.o: /home/om/Documents/Image_Pipeline/src/Filters.cpp
 

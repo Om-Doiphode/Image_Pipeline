@@ -7,9 +7,9 @@
 
 from PIL import Image
 import numpy as np
+import sys
 
-
-file = input("Enter the file name (.tiff): ")
+file = sys.argv[1]
 raw_data = Image.open(file)
 # Getting the pixel values of the image by converting the image into a numpy array
 raw = np.array(raw_data)

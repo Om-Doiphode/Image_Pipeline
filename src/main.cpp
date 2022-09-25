@@ -36,8 +36,8 @@ using matrix = vector<vector<double>>;
 int main(int argc, char **argv)
 {
     string filename = argv[2];
-    string readCommand = "dcraw -4 -D -T " + filename;
-    int ret = system("python3.8 /home/om/Documents/ImagePipeline/src/Read_image.py");
+    string readCommand = "python3.8 /home/om/Documents/Image_Pipeline/src/Read_image.py " + filename;
+    int ret = system(readCommand.c_str());
     Mat im = imread(argv[2]);
     int height = im.rows, width = im.cols;
     // PixelData.txt ==> Contains the pixel values of CFA
@@ -110,21 +110,24 @@ int main(int argc, char **argv)
     cv::resize(final_image, final_image, Size(1000, 1000));
 
     imshow("Output", final_image);
-
-    // matrix grayImage = edgeDetect(R, G, B);
+    final_image.convertTo(final_image, CV_32F);
+    Mat hsv_final;
+    cvtColor(final_image, hsv_final, COLOR_RGB2HSV);
+    imshow("OpenCV HSV", hsv_final);
+    matrix grayImage = edgeDetect(R, G, B);
     // matrix blurimage = gaussianFilter(grayImage, 7);
-    matrix redImage = meanFilter(R);
-    matrix greenImage = meanFilter(G);
-    matrix blueImage = meanFilter(B);
+    // matrix redImage = gaussianFilter(R);
+    // matrix greenImage = gaussianFilter(G);
+    // matrix blueImage = gaussianFilter(B);
 
     // matrix Binary = cvtBinary(grayImage);
     // matrix ErodedImage = Erosion(grayImage, 7);
 
-    // Mat erode_img(grayImage.size(), grayImage.at(0).size(), CV_64FC1);
-    // for (int i = 0; i < grayImage.size(); ++i)
-    //     for (int j = 0; j < grayImage[0].size(); ++j)
-    //         erode_img.at<double>(i, j) = grayImage.at(i).at(j);
-    // cv::resize(erode_img, erode_img, Size(1000, 1000));
+    Mat erode_img(grayImage.size(), grayImage.at(0).size(), CV_64FC1);
+    for (int i = 0; i < grayImage.size(); ++i)
+        for (int j = 0; j < grayImage[0].size(); ++j)
+            erode_img.at<double>(i, j) = grayImage.at(i).at(j);
+    cv::resize(erode_img, erode_img, Size(1000, 1000));
     // for (int i = 0; i < blueImage.size(); i++)
     // {
     //     for (int j = 0; j < blueImage[0].size(); j++)
@@ -132,54 +135,56 @@ int main(int argc, char **argv)
     //         cout << blueImage[i][j] << " ";
     //     }
     // }
-    cout << endl;
-    vector<Mat> blur_rgb_image;
-    Mat r_blur_img(redImage.size(), redImage.at(0).size(), CV_64FC1);
-    for (int i = 0; i < r_blur_img.rows; ++i)
-    {
-        for (int j = 0; j < r_blur_img.cols; ++j)
-        {
-            r_blur_img.at<double>(i, j) = redImage.at(i).at(j);
-        }
-    }
-    Mat g_blur_img(greenImage.size(), greenImage.at(0).size(), CV_64FC1);
-    for (int i = 0; i < g_blur_img.rows; ++i)
-    {
-        for (int j = 0; j < g_blur_img.cols; ++j)
-        {
-            g_blur_img.at<double>(i, j) = greenImage.at(i).at(j);
-        }
-    }
-    Mat b_blur_img(blueImage.size(), blueImage.at(0).size(), CV_64FC1);
-    for (int i = 0; i < b_blur_img.rows; ++i)
-    {
-        for (int j = 0; j < b_blur_img.cols; ++j)
-        {
-            b_blur_img.at<double>(i, j) = blueImage.at(i).at(j);
-        }
-    }
-    b_blur_img.convertTo(b_blur_img, CV_32F);
-    g_blur_img.convertTo(g_blur_img, CV_32F);
-    r_blur_img.convertTo(r_blur_img, CV_32F);
-    blur_rgb_image.push_back(b_blur_img);
-    blur_rgb_image.push_back(g_blur_img);
-    blur_rgb_image.push_back(r_blur_img);
-
-    Mat final_blur_image;
-    cv::merge(blur_rgb_image, final_blur_image);
-    cv::resize(final_blur_image, final_blur_image, Size(1000, 1000));
-    Mat cv_blur;
-    blur(final_image, cv_blur, Size(7, 7));
-    for (int i = 0; i < cv_blur.rows; i++)
-    {
-        for (int j = 0; j < cv_blur.cols; j++)
-        {
-            cout << cv_blur.at<double>(i, j) << " ";
-        }
-    }
-
+    vector<Mat> HSV_image;
+    vector<vector<vector<double>>> hsv_image = rgb2hsv(R, G, B);
+    // matrix H = scale(hsv_image[0]);
+    // matrix S = scale(hsv_image[1]);
+    // matrix V = scale(hsv_image[2]);
+    // Mat h(redImage.size(), redImage[0].size(), CV_64FC1);
+    // Mat s(redImage.size(), redImage[0].size(), CV_64FC1);
+    // Mat v(redImage.size(), redImage[0].size(), CV_64FC1);
+    // for (int i = 0; i < h.rows; i++)
+    // {
+    //     for (int j = 0; j < h.cols; j++)
+    //     {
+    //         h.at<double>(i, j) = hsv_image[0].at(i).at(j);
+    //     }
+    // }
+    // for (int i = 0; i < s.rows; i++)
+    // {
+    //     for (int j = 0; j < s.cols; j++)
+    //     {
+    //         s.at<double>(i, j) = hsv_image[1].at(i).at(j);
+    //     }
+    // }
+    // for (int i = 0; i < v.rows; i++)
+    // {
+    //     for (int j = 0; j < v.cols; j++)
+    //     {
+    //         v.at<double>(i, j) = hsv_image[2].at(i).at(j);
+    //     }
+    // }
+    // HSV_image.push_back(h);
+    // HSV_image.push_back(s);
+    // HSV_image.push_back(v);
+    // Mat final_hsv_image;
+    // merge(HSV_image, final_hsv_image);
+    // Mat final_blur_image;
+    // cv::merge(blur_rgb_image, final_blur_image);
+    // cv::resize(final_hsv_image, final_hsv_image, Size(1000, 1000));
+    // for (int i = 0; i < cv_blur.rows; i++)
+    // {
+    //     for (int j = 0; j < cv_blur.cols; j++)
+    //     {
+    //         cout << cv_blur.at<double>(i, j) << " ";
+    //     }
+    // }
+    Mat sobelimage;
+    // resize(erode_img, erode_img, Size(1000, 1000));
+    // Sobel(erode_img, sobelimage, CV_32F, 1, 0, 3);
     // final_blur_image.convertTo(final_blur_image, CV_32F);
-    imshow("Edges", final_blur_image);
-    imshow("Blur", cv_blur);
+    // imshow("HSV", final_hsv_image);
+    imshow("Edges", erode_img);
+    // imshow("Sobel", sobelimage);
     waitKey(0);
 }

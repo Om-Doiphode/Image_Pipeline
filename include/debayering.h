@@ -3,6 +3,7 @@ using namespace std;
 using matrix = std::vector<std::vector<double>>;
 double minEle(matrix);
 double maxEle(matrix);
+matrix padding2D(matrix &img, int ph, int pw);
 matrix conv2D(matrix, matrix);
 matrix G_at_BR(matrix);
 matrix RB_at_G_in_RBrow_BRcol(matrix);

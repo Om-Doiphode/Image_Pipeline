@@ -1,52 +1,33 @@
+/*
+*Author List: Om Doiphode
+*Filename: Edges.cpp
+*Functions: edgeDetect(matrix)
+Here, matrix=vector<vector<double>>
+*Global Variables: NONE
+*/
 #include <bits/stdc++.h>
 #include "debayering.h"
 #include "Conversion.h"
 using namespace std;
 using matrix = vector<vector<double>>;
-matrix double_thresh(matrix image, double lowthreshratio = 0.05, double highthreshratio = 0.09)
-{
-    double highThreshold = maxEle(image) * highthreshratio;
-    double lowThreshold = highThreshold * lowthreshratio;
-
-    matrix res(image.size(), vector<double>(image[0].size(), 0));
-    int weak = 25, strong = 255;
-
-    vector<double> strongI, strongJ, weakI, weakJ, zeroI, zeroJ;
-    for (int i = 0; i < image.size(); i++)
-    {
-        for (int j = 0; j < image[0].size(); j++)
-        {
-            if (image[i][j] >= highThreshold)
-            {
-                strongI.push_back(i);
-                strongJ.push_back(j);
-            }
-            else if (image[i][j] < lowThreshold)
-            {
-                zeroI.push_back(i);
-                zeroJ.push_back(j);
-            }
-            else if ((image[i][j] <= highThreshold) && (image[i][j] >= lowThreshold))
-            {
-                weakI.push_back(i);
-                weakJ.push_back(j);
-            }
-        }
-    }
-    for (int i = 0; i < strongI.size(); i++)
-    {
-        res[strongI[i]][strongJ[i]] = strong;
-    }
-    for (int i = 0; i < weakI.size(); i++)
-    {
-        res[weakI[i]][weakJ[i]] = weak;
-    }
-    return res;
-}
+/*
+ * Function Name: edgeDetect
+ * Input: R -> Red color channel (2D vector),
+ *        G -> Green color channel (2D vector),
+ *        B -> Blue Color channel (2D vector).
+ * Output: returns the image which has its edges higlighted
+ * Logic:
+ *              |-1 0 1|            |-1 -2 -1|
+ *              |-2 0 2|            | 0  0  0|
+ *              |-1 0 1|            | 1  2  1|
+ *              Vertical            Horizontal
+ * When vertical filter is applied, vertical edges become more prominent while horizontal edges get more prominent on applying horizontal filter
+ * Final image is obtained by the formula I =sqrt(Ix^2 + Iy^2), where Ix is the horizontal gradient while Iy is the vertical gradient.
+ * Example Call: edgeDetect(R,G,B)
+ */
 matrix edgeDetect(matrix R, matrix G, matrix B)
 {
-    // matrix res(R.size(), vector<double>(R[0].size(), 0));
-    matrix kernel_X = {{-1, 0.0, 1}, {-2, 0.0, 2}, {-1, 0.0, 1}};
+    matrix kernel_X = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
     matrix kernel_Y = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
 
     matrix gray_image = cvtGray(R, G, B);
@@ -58,8 +39,11 @@ matrix edgeDetect(matrix R, matrix G, matrix B)
         for (int j = 0; j < res[0].size(); j++)
         {
             final_image[i][j] = sqrt(pow(res[i][j], 2) + pow(res2[i][j], 2));
+            if (final_image[i][j] > 0.05)
+                final_image[i][j] = 1;
+            else
+                final_image[i][j] = 0;
         }
     }
-    // matrix after_threshold = double_thresh(final_image);
     return final_image;
 }
