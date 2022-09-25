@@ -1,3 +1,13 @@
+/*
+ *Author List: Om Doiphode
+ *Filename: WB.cpp
+ *Functions: averageofPixels(matrix),
+            scale(matrix, double, double),
+            maxNumber(double, double, double),
+            whiteBalance(matrix, double, double, double)
+ Here, matrix=vector<vector<double>>
+ *Global Variables: NONE
+ */
 #include <bits/stdc++.h>
 #include "../include/debayering.h"
 using namespace std;
@@ -23,6 +33,19 @@ double averageOfPixels(matrix image)
     }
     return (sum / count);
 }
+
+/*
+ * Function Name: scale
+ * Input: image --> single channel image,
+ *        a, b --> range of values over which the image needs to be normalised, default is [0,1]
+ * Output: returns the largest number of the three numbers
+ * Logic:
+The linear normalization of a digital image is performed according to
+the formula
+Output_channel = 255 * (Input_channel - min) / (max-min)
+ * Example Call: scale(image);
+ *
+ */
 matrix scale(matrix image, double a = 0, double b = 1)
 {
     int maxELement = maxEle(image), minElement = minEle(image);
@@ -69,6 +92,5 @@ matrix whiteBalance(matrix image, double avgRed, double avgGreen, double avgBlue
 {
     double avgi = averageOfPixels(image);
     double ri = maxNumber(avgRed, avgBlue, avgGreen) / (double)avgi;
-    cout << avgRed << " " << avgBlue << " " << avgGreen << " " << avgi << " " << ri << endl;
     return scale(image, 0, ri);
 }

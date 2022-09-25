@@ -35,11 +35,11 @@ using matrix = vector<vector<double>>;
 */
 int main(int argc, char **argv)
 {
-    string filename = argv[2];
+    string filename = argv[2]; // Getting the filename from the command line
     string readCommand = "python3.8 /home/om/Documents/Image_Pipeline/src/Read_image.py " + filename;
-    int ret = system(readCommand.c_str());
-    Mat im = imread(argv[2]);
-    int height = im.rows, width = im.cols;
+    int ret = system(readCommand.c_str()); // Calling the python program from the command line
+    Mat im = imread(argv[2]);              // Reading the image
+    int height = im.rows, width = im.cols; // Getting the height and width of the input image
     // PixelData.txt ==> Contains the pixel values of CFA
     fstream inputFile("PixelData.txt", ios::in);
     double buffer;
@@ -62,20 +62,24 @@ int main(int argc, char **argv)
             k++;
         }
     }
+    // Debayering
     vector<vector<vector<double>>> debayered_image = debayering(image, height, width);
     matrix R = debayered_image[0], G = debayered_image[1], B = debayered_image[2];
     double avgRed = averageOfPixels(R);
     double avgGreen = averageOfPixels(G);
     double avgBlue = averageOfPixels(B);
 
+    cout << "Auto White Balance in place" << endl;
     R = whiteBalance(R, avgRed, avgGreen, avgBlue);
     G = whiteBalance(G, avgRed, avgGreen, avgBlue);
     B = whiteBalance(B, avgRed, avgGreen, avgBlue);
 
+    cout << "Applying gamma correction" << endl;
     R = gammaCorrection(R, atof(argv[1]));
     G = gammaCorrection(G, atof(argv[1]));
     B = gammaCorrection(B, atof(argv[1]));
 
+    // Copying the contents of individual color channels to a Mat object so as to display the image.
     vector<Mat> rgb_image;
     Mat r_img(R.size(), R.at(0).size(), CV_64FC1);
     for (int i = 0; i < r_img.rows; ++i)
@@ -101,11 +105,13 @@ int main(int argc, char **argv)
             b_img.at<double>(i, j) = B.at(i).at(j);
         }
     }
+    // Creating a 3D image
     rgb_image.push_back(b_img);
     rgb_image.push_back(g_img);
     rgb_image.push_back(r_img);
 
     Mat final_image;
+    // Merging the color channels
     cv::merge(rgb_image, final_image);
     cv::resize(final_image, final_image, Size(1000, 1000));
 
@@ -114,6 +120,7 @@ int main(int argc, char **argv)
     Mat hsv_final;
     cvtColor(final_image, hsv_final, COLOR_RGB2HSV);
     imshow("OpenCV HSV", hsv_final);
+    cout << "Edge detection process" << endl;
     matrix grayImage = edgeDetect(R, G, B);
     // matrix blurimage = gaussianFilter(grayImage, 7);
     // matrix redImage = gaussianFilter(R);

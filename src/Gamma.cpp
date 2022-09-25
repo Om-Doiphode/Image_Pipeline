@@ -1,7 +1,7 @@
 /*
 *Author List: Om Doiphode
 *Filename: Gamma.cpp
-*Functions: gammaCorrection(matrix,double)
+*Functions: matrix gammaCorrection(matrix,double)
 Here, matrix=vector<vector<double>>
 *Global Variables: NONE
 */

@@ -1,8 +1,9 @@
 /*
 *Author List: Om Doiphode, Kedar Dhamankar
 *Filename: Conversion.cpp
-*Functions: cvtGray(matrix),
-            cvtBinary(matrix)
+*Functions: matrix cvtGray(matrix),
+            matirx cvtBinary(matrix),
+            matrix rgb2hsv(matrix,matrix)
 Here, matrix=vector<vector<double>>
 *Global Variables: NONE
 */
@@ -90,8 +91,6 @@ vector<vector<vector<double>>> rgb2hsv(matrix R, matrix G, matrix B)
         {
             double cmax = max(R[i][j], max(G[i][j], B[i][j]));
             double cmin = min(R[i][j], min(G[i][j], B[i][j]));
-            // cout << "cmax: " << cmax << " "
-            //      << "cmin: " << cmin << endl;
             double difference = cmax - cmin;
             // if cmax and cmax are equal then h = 0
             if (cmax == cmin)

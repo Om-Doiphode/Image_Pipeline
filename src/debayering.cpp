@@ -85,7 +85,9 @@ matrix conv2D(matrix img, matrix kernal)
                 }
             }
         }
+        cout << "\r [" << ceil(i * 100 / out_h) << '%' << "] ";
     }
+    cout << endl;
     return ret;
 }
 /*
@@ -195,11 +197,13 @@ vector<vector<vector<double>>> autoAdjust(matrix R, matrix G, matrix B, int heig
  */
 vector<vector<vector<double>>> debayering(matrix image, int height, int width)
 {
+    cout << "Scaling process initiated..." << endl;
     image = scale(image);
+    cout << "Scaling done" << endl;
     matrix R(height, vector<double>(width, 0));
     matrix G(height, vector<double>(width, 0));
     matrix B(height, vector<double>(width, 0));
-
+    cout << "Debayering process initiated..." << endl;
     // Copying data that doesn't need interpolation
     int i1 = 0;
     for (int i = 2; i < height + 2; i++)
@@ -246,7 +250,6 @@ vector<vector<vector<double>>> debayering(matrix image, int height, int width)
 
     // Fill in the G data at the B/R locations
     matrix tmp = G_at_BR(image);
-    cout << tmp.size() << " " << tmp[0].size() << endl;
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
@@ -309,10 +312,6 @@ vector<vector<vector<double>>> debayering(matrix image, int height, int width)
         }
     }
     vector<vector<vector<double>>> debayered_image;
-    // vector<vector<vector<double>>> combine = autoAdjust(R, G, B, height, width);
-    // R = combine[0];
-    // G = combine[1];
-    // B = combine[2];
 
     // RGB to sRGB
     vector<vector<vector<double>>> colorCorrectedImage = ColorConv(R, G, B);
@@ -321,5 +320,6 @@ vector<vector<vector<double>>> debayering(matrix image, int height, int width)
     debayered_image.push_back(colorCorrectedImage[0]);
     debayered_image.push_back(colorCorrectedImage[1]);
     debayered_image.push_back(colorCorrectedImage[2]);
+    cout << "Debayering done" << endl;
     return debayered_image;
 }

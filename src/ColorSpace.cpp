@@ -17,6 +17,14 @@ double sumOfRows(vector<double> row)
         s += row[i];
     return s;
 }
+/*
+ * Function Name: inverse
+ * Input: mat -> 2D vector
+ * Output: returns the inverse of matrix
+ * Logic:  AA^-1 = I
+ *        where A is the input matrix, I is the identity matrix and A^-1 is the inverse of matrix A.
+ * Example Call: inverse(matrix)
+ */
 matrix inverse(matrix mat)
 {
     matrix inv(mat.size(), vector<double>(mat[0].size(), 0));

@@ -1,7 +1,10 @@
 /*
  *Author List: Om Doiphode
- *Filename: MedianFilter.cpp
+ *Filename: Filters.cpp
  *Functions: filter(matrix)
+             meanFilter(matrix , int)
+             gaussianFilterCreation(int)
+             gaussianFilter(matrix, int)
  Here, matrix=vector<vector<double>>
  *Global Variables: NONE
  */
@@ -35,7 +38,20 @@ matrix filter(matrix image)
     }
     return new_image;
 }
-
+/*
+ * Function Name: meanFilter
+ * Input: image -> 2D vector of image, kernel_size --> Size of kernel (default is 3 x 3), size should be odd.
+ * Output: returns blurred image
+ * Logic: The input image is convoluted with the following matrix (in case of 3x3 kernel):
+ *          | 1/9  1/9  1/9 |
+ *          | 1/9  1/9  1/9 |
+ *          | 1/9  1/9  1/9 |
+ * Or in general
+ *                            | 1  1  1 |
+ *          1/(kernel_size)^2 | 1  1  1 |
+ *                            | 1  1  1 |
+ * Example Call: meanFilter(image);
+ */
 matrix meanFilter(matrix image, int kernel_size = 3)
 {
     matrix kernel(kernel_size, vector<double>(kernel_size, 0));
@@ -55,7 +71,15 @@ matrix meanFilter(matrix image, int kernel_size = 3)
         }
     return res;
 }
-// Function to create Gaussian filter
+/*
+ * Function Name: gaussianFilterCreation
+ * Input: kernel_size --> Size of kernel (default is 3 x 3), size should be odd.
+ * Output: returns the kernel for convolution
+ * Logic:              1
+ *       G(x,y) =  --------------- * e^-((x)^2 + (y)^2)/2*(sigma)^2
+ *                 2*pi*(sigma)^2
+ * Example Call: gaussianFilterCreation(5);
+ */
 matrix gaussianFilterCreation(int kernel_size = 3)
 {
     matrix kernel(kernel_size, vector<double>(kernel_size, 0));
@@ -83,6 +107,12 @@ matrix gaussianFilterCreation(int kernel_size = 3)
             kernel[i][j] /= sum;
     return kernel;
 }
+/*
+ * Function Name: gaussianFilter
+ * Input: image -> 2D vector of image, kernel_size --> Size of kernel (default is 3 x 3), size should be odd.
+ * Output: returns blurred image
+ * Example Call: gaussianFilter(image);
+ */
 matrix gaussianFilter(matrix image, int kernel_size = 3)
 {
     matrix kernel = gaussianFilterCreation(kernel_size);
