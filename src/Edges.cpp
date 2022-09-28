@@ -27,12 +27,16 @@ using matrix = vector<vector<double>>;
  */
 matrix edgeDetect(matrix R, matrix G, matrix B)
 {
-    matrix kernel_X = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
-    matrix kernel_Y = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
+    matrix kernel_X = {{-1, 0, 1},
+                       {-2, 0, 2},
+                       {-1, 0, 1}};
+    matrix kernel_Y = {{-1, -2, -1},
+                       {0, 0, 0},
+                       {1, 2, 1}};
 
     matrix gray_image = cvtGray(R, G, B);
-    matrix res = conv2D(gray_image, kernel_X);
-    matrix res2 = conv2D(gray_image, kernel_Y);
+    matrix res = conv2D(gray_image, kernel_X, 8);
+    matrix res2 = conv2D(gray_image, kernel_Y, 8);
     matrix final_image(gray_image.size(), vector<double>(gray_image[0].size(), 0));
     for (int i = 0; i < res.size(); i++)
     {

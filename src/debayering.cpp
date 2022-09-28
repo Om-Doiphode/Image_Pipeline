@@ -64,7 +64,7 @@ double maxEle(matrix image)
  * Output: returns the image which is convoluted with the mask (kernel)
  * Example Call: conv2D(image,kernel)
  */
-matrix conv2D(matrix img, matrix kernal)
+matrix conv2D(matrix img, matrix kernal, int n = 8)
 {
     int out_h = img.size() - kernal.size() + 1;       // Height of the output image
     int out_w = img[0].size() - kernal[0].size() + 1; // Width of the output image
@@ -81,7 +81,7 @@ matrix conv2D(matrix img, matrix kernal)
                     /* By skipping 0 multiplcation, time increased from 376ms to 252ms */
                     if (img[i + muli][j + mulj] == 0 || kernal[muli][mulj] == 0)
                         continue;
-                    ret[i][j] += (img[i + muli][j + mulj] * kernal[muli][mulj]) / 8;
+                    ret[i][j] += (img[i + muli][j + mulj] * kernal[muli][mulj]) / n;
                 }
             }
         }
@@ -89,6 +89,41 @@ matrix conv2D(matrix img, matrix kernal)
     }
     cout << endl;
     return ret;
+}
+matrix AutoExposure(matrix image, matrix grayImage)
+{
+    matrix res(image.size(), vector<double>(image[0].size(), 0));
+    double X, X1, G;
+
+    for (int i = 0; i < 480; i++)
+    {
+        for (int j = 0; j < 640; j++)
+        {
+            // f1 >> X;
+            // f3 >> G;
+            if (G < 0.5)
+            {
+                X1 = image[i][j] + 0.05;
+                // f2 << X1 << " ";
+                res[i][j] = X1;
+            }
+
+            else if (G > 0.5)
+            {
+                X1 = image[i][j] - 0.1;
+                // f2 << X1 << " ";
+                res[i][j] = X1;
+            }
+
+            else
+            {
+                // f2 << X << " ";
+                res[i][j] = X;
+            }
+        }
+        // f2 << endl;
+    }
+    return res;
 }
 /*
  * Function Name: G_at_B_R
@@ -98,7 +133,12 @@ matrix conv2D(matrix img, matrix kernal)
  */
 matrix G_at_BR(matrix &image)
 {
-    matrix kernel = {{0.0, 0.0, -1.0, 0.0, 0.0}, {0.0, 0.0, 2.0, 0.0, 0.0}, {-1.0, 2.0, 4.0, 2.0, -1.0}, {0.0, 0.0, 2.0, 0.0, 0.0}, {0.0, 0.0, -1.0, 0.0, 0.0}};
+    matrix kernel = {
+        {0.0, 0.0, -1.0, 0.0, 0.0},
+        {0.0, 0.0, 2.0, 0.0, 0.0},
+        {-1.0, 2.0, 4.0, 2.0, -1.0},
+        {0.0, 0.0, 2.0, 0.0, 0.0},
+        {0.0, 0.0, -1.0, 0.0, 0.0}};
     return conv2D(image, kernel);
 }
 /*
@@ -110,7 +150,11 @@ matrix G_at_BR(matrix &image)
  */
 matrix RB_at_G_in_RBrow_BRcol(matrix &image)
 {
-    matrix kernel = {{0, 0, 0.5, 0, 0}, {0, -1, 0, -1, 0}, {-1, 4, 5, 4, -1}, {0, -1, 0, -1, 0}, {0, 0, 0.5, 0, 0}};
+    matrix kernel = {{0, 0, 0.5, 0, 0},
+                     {0, -1, 0, -1, 0},
+                     {-1, 4, 5, 4, -1},
+                     {0, -1, 0, -1, 0},
+                     {0, 0, 0.5, 0, 0}};
     return conv2D(image, kernel);
 }
 /*
@@ -122,7 +166,11 @@ matrix RB_at_G_in_RBrow_BRcol(matrix &image)
  */
 matrix RB_at_G_in_BRrow_RBcol(matrix &image)
 {
-    matrix kernel = {{0, 0, -1, 0, 0}, {0, -1, 4, -1, 0}, {0.5, 0, 5, 0, 0.5}, {0, -1, 4, -1, 0}, {0, 0, -1, 0, 0}};
+    matrix kernel = {{0, 0, -1, 0, 0},
+                     {0, -1, 4, -1, 0},
+                     {0.5, 0, 5, 0, 0.5},
+                     {0, -1, 4, -1, 0},
+                     {0, 0, -1, 0, 0}};
     return conv2D(image, kernel);
 }
 /*
@@ -134,7 +182,11 @@ matrix RB_at_G_in_BRrow_RBcol(matrix &image)
  */
 matrix RB_at_BR(matrix &image)
 {
-    matrix kernel = {{0, 0, -1.5, 0, 0}, {0, 2, 0, 2, 0}, {-1.5, 0, 6, 0, -1.5}, {0, 2, 0, 2, 0}, {0, 0, -1.5, 0, 0}};
+    matrix kernel = {{0, 0, -1.5, 0, 0},
+                     {0, 2, 0, 2, 0},
+                     {-1.5, 0, 6, 0, -1.5},
+                     {0, 2, 0, 2, 0},
+                     {0, 0, -1.5, 0, 0}};
     return conv2D(image, kernel);
 }
 
@@ -249,6 +301,7 @@ vector<vector<vector<double>>> debayering(matrix image, int height, int width)
     }
 
     // Fill in the G data at the B/R locations
+    cout << "First convolution layer: " << endl;
     matrix tmp = G_at_BR(image);
     for (int i = 0; i < height; i++)
     {
@@ -266,6 +319,7 @@ vector<vector<vector<double>>> debayering(matrix image, int height, int width)
     }
 
     // Fill in B/R data
+    cout << "Second convolution layer: " << endl;
     matrix tmp2 = RB_at_G_in_BRrow_RBcol(image);
     for (int i = 0; i < height; i++)
     {
@@ -281,6 +335,7 @@ vector<vector<vector<double>>> debayering(matrix image, int height, int width)
             }
         }
     }
+    cout << "Third convolution layer: " << endl;
     matrix tmp3 = RB_at_G_in_RBrow_BRcol(image);
     for (int i = 0; i < height; i++)
     {
@@ -296,6 +351,7 @@ vector<vector<vector<double>>> debayering(matrix image, int height, int width)
             }
         }
     }
+    cout << "Fourth convolution layer: " << endl;
     matrix tmp4 = RB_at_BR(image);
     for (int i = 0; i < height; i++)
     {
@@ -322,4 +378,75 @@ vector<vector<vector<double>>> debayering(matrix image, int height, int width)
     debayered_image.push_back(colorCorrectedImage[2]);
     cout << "Debayering done" << endl;
     return debayered_image;
+}
+double maxPixelvalue(matrix image)
+{
+    double maxVal = image[0][0];
+    for (int i = 0; i < image.size(); i++)
+    {
+        for (int j = 0; j < image[0].size(); j++)
+        {
+            if (image[i][j] > maxVal)
+                maxVal = image[i][j];
+        }
+    }
+    return maxVal;
+}
+
+matrix blackLevelCorrection(matrix image)
+{
+    double maxVal = maxPixelvalue(image);
+    matrix res(image.size(), vector<double>(image[0].size(), 0));
+    double glob_thresh_val = maxVal / 2;
+    for (int i = 0; i < image.size(); i++)
+    {
+        for (int j = 0; j < image[0].size(); j++)
+        {
+            if (image[i][j] <= glob_thresh_val)
+            {
+                res[i][j] = image[i][j] - 0.001 * image[i][j];
+            }
+            else if (image[i][j] <= 0.55 * maxVal) // 0.5 < intensity <= 0.55
+            {
+                res[i][j] = image[i][j] - 0.25 * image[i][j];
+            }
+            else if (image[i][j] <= 0.59 * maxVal) // 0.55 < intensity <= 0.59
+            {
+                res[i][j] = image[i][j] - 0.20 * image[i][j];
+            }
+            else if (image[i][j] <= 0.63 * maxVal) // 0.59 < intensity <= 0.63
+            {
+                res[i][j] = image[i][j] - 0.15 * image[i][j];
+            }
+            else if (image[i][j] <= 0.65 * maxVal) // 0.63 < intensity <= 0.65
+            {
+                res[i][j] = image[i][j] - 0.10 * image[i][j];
+            }
+            else if (image[i][j] <= 0.66 * maxVal) // 0.65 < intensity <= 0.66
+            {
+                res[i][j] = image[i][j] - 0.06 * image[i][j];
+            }
+            else if (image[i][j] <= 0.67 * maxVal) // 0.66 < intensity <= 0.67
+            {
+                res[i][j] = image[i][j] - 0.03 * image[i][j];
+            }
+            else if (image[i][j] <= 0.68 * maxVal) // 0.67 < intensity <= 0.68
+            {
+                res[i][j] = image[i][j] - 0.01 * image[i][j];
+            }
+            else if (image[i][j] <= 0.69 * maxVal) // 0.68 < intensity <= 0.69
+            {
+                res[i][j] = image[i][j] - 0.005 * image[i][j];
+            }
+            else if (image[i][j] <= 0.70 * maxVal) // 0.69 < intensity <= 0.70
+            {
+                res[i][j] = image[i][j] - 0.001 * image[i][j];
+            }
+            else
+            {
+                res[i][j] = image[i][j];
+            }
+        }
+    }
+    return res;
 }

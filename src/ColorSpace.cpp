@@ -39,6 +39,14 @@ matrix inverse(matrix mat)
     }
     return inv;
 }
+/*
+ * Function Name: ColorConv
+ * Input: R -> 2D vector,
+ *        G -> 2D vector,
+ *        B -> 2D vector
+ * Output: returns the image (3D vector) converted to sRGB color space
+ * Example Call: ColorConv(R,G,B)
+ */
 vector<vector<vector<double>>> ColorConv(matrix R, matrix G, matrix B)
 {
     matrix rgb2xyz = {{0.4124564, 0.3575761, 0.1804375},
@@ -63,6 +71,7 @@ vector<vector<vector<double>>> ColorConv(matrix R, matrix G, matrix B)
             denom[i][j] = sumOfRows(rgb2cam[i]);
         }
     }
+    // Normalize rows to 1
     for (int i = 0; i < rgb2cam.size(); i++)
     {
         for (int j = 0; j < rgb2cam[0].size(); j++)
@@ -92,6 +101,7 @@ vector<vector<vector<double>>> ColorConv(matrix R, matrix G, matrix B)
             B[i][j] = cam2rgb[2][0] * R[i][j] + cam2rgb[2][1] * G[i][j] + cam2rgb[2][2] * B[i][j];
         }
     }
+    // Always keep image clipped b/w 0-1
     for (int i = 0; i < R.size(); i++)
     {
         for (int j = 0; j < R[0].size(); j++)
@@ -102,6 +112,7 @@ vector<vector<vector<double>>> ColorConv(matrix R, matrix G, matrix B)
                 R[i][j] = 0;
         }
     }
+    // Always keep image clipped b/w 0-1
     for (int i = 0; i < G.size(); i++)
     {
         for (int j = 0; j < G[0].size(); j++)
@@ -112,6 +123,7 @@ vector<vector<vector<double>>> ColorConv(matrix R, matrix G, matrix B)
                 G[i][j] = 0;
         }
     }
+    // Always keep image clipped b/w 0-1
     for (int i = 0; i < B.size(); i++)
     {
         for (int j = 0; j < B[0].size(); j++)

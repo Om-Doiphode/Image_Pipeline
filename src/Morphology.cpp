@@ -120,7 +120,9 @@ matrix Erosion(matrix img, int kernel_size = 3)
  */
 matrix Dilation(matrix img)
 {
-    matrix kernal = {{0, 1, 0}, {1, 1, 1}, {0, 1, 0}};
+    matrix kernal = {{0, 1, 0},
+                     {1, 1, 1},
+                     {0, 1, 0}};
     matrix new_image(img.size(), vector<double>(img[0].size(), 0));
     int addition = sum(kernal);
     int m = kernal.size(), n = kernal[0].size();
