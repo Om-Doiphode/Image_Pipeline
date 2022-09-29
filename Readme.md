@@ -36,10 +36,12 @@ This section contains the technologies we used for this project.
 * C
 * OpenCV
 * VS Code
+* Python
 
 ## File Structure
 
     ├── assets                   # Folder containing pngs
+    ├── Notes                    # Notes of Debayering and other algorithms
     ├── src                      # Source code files
         ├── CMakeLists.txt
         ├── ColorSpace.cpp
@@ -193,67 +195,57 @@ In Gaussian Blur operation, the image is convolved with a Gaussian filter instea
 ## Usage
 Once the requirements are satisfied, you can easily download the project and use it on your machine.
 
-1) First navigate to the build folder by the following command:
-cd Image_Pipeline/build
-2) make
-3) ../bin/working  <gamma_value> <path_to_image_file>
+1) First navigate to the folder Image_Pipeline
+2) `mkdir build`
+3) `cd build`
+4) `cmake ../src`
+5) `make`
+6) `dcraw -4 -d -v -T <raw_file_name>`
+6) `../bin/working  <gamma_value> <path_to_image_file (.tiff file)>`
 
 ## Results and Demo
 ### Preprocessing Results
 
-![Result-1](/assests/Results1.png)
+<img src="assests/Results1.png" width="300">
 
-![Result-2](/assests/Result2.png)
+<img src="assests/Result2.png" width="300">
 
-![Result-3](/assests/Result-3.png)
+<img src="assests/Result-3.png" width="300">
 
-![Result-4](/assests/TestImage2.png)
+<img src="assests/TestImage2.png" width="300">
 
-![Result-5](/assests/TestImage3.png)
+<img src="assests/TestImage3.png" width="300">
 
-![Result-6](/assests/TestImage1.png)
+<img src="assests/TestImage1.png" width="300">
 
 ### Post-Processing
+Grayscale Conversion             |  Binary conversion
+:-------------------------:|:-------------------------:
+<image src="assests/Gray.png" alt = "gray" width = 350>  | <image src="assests/Binary.png" alt = "grayscale" width = 350> 
 
-#### RGB --> Grayscale
-![Grayscale](/assests/Gray.png)
+HSV Conversion             |   Sobel Edge Detection
+:-------------------------:|:-------------------------:
+<image src="assests/HSV.png" alt = "HSV" width = 350>  | <image src="assests/Edges.png" alt = "Edges" width = 350> 
 
-#### Grayscale --> Binary
-![Binary](/assests/Binary.png)
+Erosion          |  Dilation
+:-------------------------:|:-------------------------:
+<image src="assests/Erode.png" alt = "Erode" width = 350>  | <image src="assests/Dilate.png" alt = "Dilate" width = 350> 
 
-#### RGB --> HSV
-![HSV](/assests/HSV.png)
+Opening             |  Closing
+:-------------------------:|:-------------------------:
+<image src="assests/Opening.png" alt = "Opening" width = 350>  | <image src="assests/Closing.png" alt = "Closing" width = 350> 
 
-#### Sobel Edge Detection
-![Edge Detection](/assests/Edges.png)
+Gradient             |  Mean Filter
+:-------------------------:|:-------------------------:
+<image src="assests/Gradient.png" alt = "Gradient" width = 350>  | <image src="assests/MeanBlur.png" alt = "MeanBlur" width = 350> 
 
-#### Erosion
-![Erosion](/assests/Erode.png)
-
-#### Dilation
-![Dilation](/assests/Dilate.png)
-
-#### Opening
-![Opening](/assests/Opening.png)
-
-#### Closing
-![Closing](/assests/Closing.png)
-
-#### Gradient
-![Gradient](/assests/Gradient.png)
-
-#### Mean Filter
-![Mean](/assests/MeanBlur.png)
-
-#### Gaussian Filter
-![Gaussian filter](/assests/GaussianBlur.png)
-
-#### Median Filter
-![Median filter](/assests/Median.png)
+Gaussian Filter            |  Median Filter
+:-------------------------:|:-------------------------:
+<image src="assests/GaussianBlur.png" alt = "GaussianBlur" width = 350>  | <image src="assests/Median.png" alt = "Median" width = 350> 
 
 ## Contributors
-* Om Doiphode 
-* Kedar Dhamankar
+* [Om Doiphode](https://github.com/HAWKEYE-HS)
+* [Kedar Dhamankar](https://github.com/KedarDhamankar)
 
 ## Acknowledgements and Resources
 
@@ -265,7 +257,7 @@ cd Image_Pipeline/build
 
 * Referred [this](https://www.codeproject.com/Articles/653355/Color-Constancy-Gray-World-Algorithm) for White Balancing Algorithm 
 
-* Referred [this](https://www.cambridgeincolour.com/tutorials/gamma-correction.htm)for gamma correction 
+* Referred [this](https://www.cambridgeincolour.com/tutorials/gamma-correction.htm) for gamma correction 
 
 * Referred [this](https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html) for morphological operations.
 
