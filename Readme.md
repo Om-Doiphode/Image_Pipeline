@@ -205,18 +205,15 @@ Once the requirements are satisfied, you can easily download the project and use
 
 ## Results and Demo
 ### Preprocessing Results
+RAW Image           |  Prepocessed Image
+:-------------------------:|:-------------------------:
+<image src="assests/Image3O.png" alt = "Image1" width = 350 height="200">  | <image src="assests/Image3.png" alt = "PreImage" width = 350 height="200"> 
+<image src="assests/ImageOutput2.png" alt = "Image1" width = 350 height="200">  | <image src="assests/ImageOutput1.png" alt = "PreImage" width = 350 height="200">
+<image src="assests/Image2O.png" alt = "Image1" width = 350 height="200">  | <image src="assests/Image2.png" alt = "PreImage" width = 350 height="200">
+<image src="assests/Image4.png" alt = "Image1" width = 350 height="200">  | <image src="assests/Image4O.png" alt = "PreImage" width = 350 height="200">
+<image src="assests/Flash.png" alt = "Image1" width = 350 height="200">  | <image src="assests/FlashO.png" alt = "PreImage" width = 350 height="200">
 
-<img src="assests/Results1.png" width="300">
-
-<img src="assests/Result2.png" width="300">
-
-<img src="assests/Result-3.png" width="300">
-
-<img src="assests/TestImage2.png" width="300">
-
-<img src="assests/TestImage3.png" width="300">
-
-<img src="assests/TestImage1.png" width="300">
+<hr>
 
 ### Post-Processing
 Grayscale Conversion             |  Binary conversion
