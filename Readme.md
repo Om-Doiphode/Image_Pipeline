@@ -85,7 +85,7 @@ Refer [this](/Notes/Theory.md) for more info
 ### Debayering
 
 Debayering, also known as demosaicing, is the process to convert a CFA image (m-by-n) to a true RGB color digital image (m-by-n-by-3).
-Refer [this](../Notes/Debayering.md) for more info on debayering.
+Refer [this](/Notes/Debayering.md) for more info on debayering.
 
 ### Black Level Correction
 Black level leads to the whitening of image's dark region and perceived loss of overall contrast
