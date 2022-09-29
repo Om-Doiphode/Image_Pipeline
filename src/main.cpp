@@ -82,39 +82,12 @@ int main(int argc, char **argv)
     G = gammaCorrection(G, atof(argv[1]));
     B = gammaCorrection(B, atof(argv[1]));
 
-    matrix R_blur = filter(R);
-    matrix G_blur = filter(G);
-    matrix B_blur = filter(B);
-    matrix R_black = (blackLevelCorrection(R));
-    matrix G_black = (blackLevelCorrection(G));
-    matrix B_black = (blackLevelCorrection(B));
-
-    Mat Black = create3DImage(R_black, G_black, B_black);
-
-    Mat blur_image = create3DImage(R_blur, G_blur, B_blur);
-
     Mat final_image = create3DImage(R, G, B);
-    // Mat edge = create2DImage(gaussianFilter());
-    // Mat grayImage = create2DImage(cvtGray(R, G, B));
-    // Mat binary_image = create2DImage(cvtBinary(cvtGray(R, G, B)));
-
-    // // vector<vector<vector<double>>> HSV = rgb2hsv(R, G, B);
-    // Mat hsv = create2DImage(edgeDetect(R, G, B));
     resize(final_image, final_image, Size(1000, 1000));
-    // resize(grayImage, grayImage, Size(1000, 1000));
-    // resize(binary_image, binary_image, Size(1000, 1000));
-    // resize(blur_image, blur_image, Size(1000, 1000));
-    resize(blur_image, blur_image, Size(1000, 1000));
-    resize(adjustImage, adjustImage, Size(1000, 1000));
-    resize(Black, Black, Size(1000, 1000));
 
     imshow("Output", final_image);
-    imshow("Edges", blur_image);
-    imshow("Adjusted", adjustImage);
-    imshow("Black", Black);
-    // imshow("Gray", grayImage);
-    // imshow("Binary", binary_image);
-    // imshow("HSV", hsv);
-    // imshow("Blur", blur_image);
+    // Scaling the image so that it can be saved.
+    final_image.convertTo(final_image, CV_8UC3, 255.0);
+    imwrite("Output.png", final_image);
     waitKey(0);
 }
