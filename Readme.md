@@ -205,7 +205,7 @@ Once the requirements are satisfied, you can easily download the project and use
 
 ## Results and Demo
 ### Preprocessing Results
-RAW Image           |  Prepocessed Image
+RAW Image           |  Preprocessed Image
 :-------------------------:|:-------------------------:
 <image src="assests/Image3O.png" alt = "Image1" width = 350 height="200">  | <image src="assests/Image3.png" alt = "PreImage" width = 350 height="200"> 
 <image src="assests/ImageOutput2.png" alt = "Image1" width = 350 height="200">  | <image src="assests/ImageOutput1.png" alt = "PreImage" width = 350 height="200">
