@@ -1,6 +1,6 @@
 /*
 *Author List: Om Doiphode, Kedar Dhamankar
-*Filename: Morphology.cpp
+*Filename: morphology.cpp
 *Functions: double sum(matrix),
             matrix multiply(matrix, matrix),
             matrix vectorSlice(matrix, int, int, int, int),

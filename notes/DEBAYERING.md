@@ -154,12 +154,12 @@ similarly.
 <i>5 x 5 linear filters</i>
 
 
-![](G_at_B_R.png)
+![](g_at_b_r.png)
 
-![](R_at_B.png)
+![](r_at_b.png)
 
-![](R_at_G.png)
+![](r_at_g.png)
 
-![](B_at_R.png)
+![](b_at_r.png)
 
-![](B_at_G.png)
+![](r_at_g.png)

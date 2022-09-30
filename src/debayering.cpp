@@ -13,10 +13,9 @@ Here, matrix=vector<vector<double>>
 *Global Variables: NONE
 */
 #include <bits/stdc++.h>
-#include <math.h>
-#include "ColorSpace.h"
-#include "WB.h"
-#include "Conversion.h"
+#include "color_space_conversion.h"
+#include "auto_white_balance.h"
+#include "conversion.h"
 using namespace std;
 using matrix = vector<vector<double>>;
 /*

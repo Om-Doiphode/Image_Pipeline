@@ -1,5 +1,5 @@
 # Image Pipeline
-![Image Pipeline](/assests/Intro.gif)
+![Image Pipeline](/assests/intro.gif)
 <!-- TABLE OF CONTENTS -->
 # Table of Contents
 
@@ -41,29 +41,29 @@ This section contains the technologies we used for this project.
 ## File Structure
 
     ├── assets                   # Folder containing pngs
-    ├── Notes                    # Notes of Debayering and other algorithms
+    ├── notes                    # Notes of Debayering and other algorithms
     ├── src                      # Source code files
         ├── CMakeLists.txt
-        ├── ColorSpace.cpp
-        ├── Conversion.cpp
-        ├── CreateImage.cpp
+        ├── color_space_conversion.cpp
+        ├── conversion.cpp
+        ├── create_image.cpp
         ├── dcraw.c
         ├── debayering.cpp
-        ├── Edges.cpp
-        ├── Filters.cpp
-        ├── Gamma.cpp
+        ├── edges.cpp
+        ├── filters.cpp
+        ├── gamma.cpp
         ├── main.cpp
-        ├── Read_image.py
-        ├── WB.cpp
+        ├── read_image.py
+        ├── auto_white_balance.cpp
     ├── include                  # Header files
-        ├── ColorSpace.h
-        ├── Conversion.h
-        ├── CreateImage.h
+        ├── color_space_conversion.h
+        ├── conversion.h
+        ├── create_image.h
         ├── debayering.h
-        ├── Edges.h
-        ├── Filters.h
-        ├── Gamma.h
-        ├── WB.h          
+        ├── edges.h
+        ├── filters.h
+        ├── gamma.h
+        ├── auto_white_balance.h          
     ├── LICENSE                  # MIT license
     ├── README.md                # readme.md
 
@@ -82,12 +82,12 @@ Clone the repo
 ` git clone https://github.com/HAWKEYE-HS/Image_Pipeline`
 
 ## Theory and Approach
-Refer [this](/Notes/Theory.md) for more info
+Refer [this](/notes/THEORY.md) for more info
 
 ### Debayering
 
 Debayering, also known as demosaicing, is the process to convert a CFA image (m-by-n) to a true RGB color digital image (m-by-n-by-3).
-Refer [this](/Notes/Debayering.md) for more info on debayering.
+Refer [this](/notes/DEBAYERING.md) for more info on debayering.
 
 ### Black Level Correction
 Black level leads to the whitening of image's dark region and perceived loss of overall contrast
@@ -124,7 +124,7 @@ beta = -min(I) * alpha`
 
    Where <b>I</b> is our input image and <b>G</b> is our gamma value. The output image <b>O</b> is then scaled back to the range [0, 255].
 
-![Preprocessing](/assests/Preprocessing.png)
+![Preprocessing](/assests/preprocessing.png)
 
 ### RGB --> Grayscale
 
@@ -207,38 +207,38 @@ Once the requirements are satisfied, you can easily download the project and use
 ### Preprocessing Results
 RAW Image           |  Preprocessed Image
 :-------------------------:|:-------------------------:
-<image src="assests/Image3O.png" alt = "Image1" width = 350 height="200">  | <image src="assests/Image3.png" alt = "PreImage" width = 350 height="200"> 
-<image src="assests/ImageOutput2.png" alt = "Image1" width = 350 height="200">  | <image src="assests/ImageOutput1.png" alt = "PreImage" width = 350 height="200">
-<image src="assests/Image2O.png" alt = "Image1" width = 350 height="200">  | <image src="assests/Image2.png" alt = "PreImage" width = 350 height="200">
-<image src="assests/Image4.png" alt = "Image1" width = 350 height="200">  | <image src="assests/Image4O.png" alt = "PreImage" width = 350 height="200">
-<image src="assests/Flash.png" alt = "Image1" width = 350 height="200">  | <image src="assests/FlashO.png" alt = "PreImage" width = 350 height="200">
+<image src="assests/image3o.png" alt = "Image1" width = 350 height="200">  | <image src="assests/image3.png" alt = "PreImage" width = 350 height="200"> 
+<image src="assests/imageoutput2.png" alt = "Image1" width = 350 height="200">  | <image src="assests/imageoutput1.png" alt = "PreImage" width = 350 height="200">
+<image src="assests/image2o.png" alt = "Image1" width = 350 height="200">  | <image src="assests/image2.png" alt = "PreImage" width = 350 height="200">
+<image src="assests/image4.png" alt = "Image1" width = 350 height="200">  | <image src="assests/image4o.png" alt = "PreImage" width = 350 height="200">
+<image src="assests/flash.png" alt = "Image1" width = 350 height="200">  | <image src="assests/flasho.png" alt = "PreImage" width = 350 height="200">
 
 <hr>
 
 ### Post-Processing
 Grayscale Conversion             |  Binary conversion
 :-------------------------:|:-------------------------:
-<image src="assests/Gray.png" alt = "gray" width = 350>  | <image src="assests/Binary.png" alt = "grayscale" width = 350> 
+<image src="assests/gray.png" alt = "gray" width = 350>  | <image src="assests/binary.png" alt = "grayscale" width = 350> 
 
 HSV Conversion             |   Sobel Edge Detection
 :-------------------------:|:-------------------------:
-<image src="assests/HSV.png" alt = "HSV" width = 350>  | <image src="assests/Edges.png" alt = "Edges" width = 350> 
+<image src="assests/hsv.png" alt = "HSV" width = 350>  | <image src="assests/edges.png" alt = "Edges" width = 350> 
 
 Erosion          |  Dilation
 :-------------------------:|:-------------------------:
-<image src="assests/Erode.png" alt = "Erode" width = 350>  | <image src="assests/Dilate.png" alt = "Dilate" width = 350> 
+<image src="assests/erode.png" alt = "Erode" width = 350>  | <image src="assests/dilate.png" alt = "Dilate" width = 350> 
 
 Opening             |  Closing
 :-------------------------:|:-------------------------:
-<image src="assests/Opening.png" alt = "Opening" width = 350>  | <image src="assests/Closing.png" alt = "Closing" width = 350> 
+<image src="assests/opening.png" alt = "Opening" width = 350>  | <image src="assests/closing.png" alt = "Closing" width = 350> 
 
 Gradient             |  Mean Filter
 :-------------------------:|:-------------------------:
-<image src="assests/Gradient.png" alt = "Gradient" width = 350>  | <image src="assests/MeanBlur.png" alt = "MeanBlur" width = 350> 
+<image src="assests/gradient.png" alt = "Gradient" width = 350>  | <image src="assests/meanblur.png" alt = "MeanBlur" width = 350> 
 
 Gaussian Filter            |  Median Filter
 :-------------------------:|:-------------------------:
-<image src="assests/GaussianBlur.png" alt = "GaussianBlur" width = 350>  | <image src="assests/Median.png" alt = "Median" width = 350> 
+<image src="assests/gaussianblur.png" alt = "GaussianBlur" width = 350>  | <image src="assests/median.png" alt = "Median" width = 350> 
 
 ## Contributors
 * [Om Doiphode](https://github.com/HAWKEYE-HS)

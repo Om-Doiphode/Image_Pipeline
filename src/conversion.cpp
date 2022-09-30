@@ -1,6 +1,6 @@
 /*
 *Author List: Om Doiphode, Kedar Dhamankar
-*Filename: Conversion.cpp
+*Filename: conversion.cpp
 *Functions: matrix cvtGray(matrix),
             matirx cvtBinary(matrix),
             matrix rgb2hsv(matrix,matrix)
@@ -9,7 +9,7 @@ Here, matrix=vector<vector<double>>
 */
 #include <bits/stdc++.h>
 #include "debayering.h"
-#include "WB.h"
+#include "auto_white_balance.h"
 using namespace std;
 using matrix = vector<vector<double>>;
 /*

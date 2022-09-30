@@ -1,13 +1,13 @@
 /*
 *Author List: Om Doiphode
-*Filename: Edges.cpp
+*Filename: edges.cpp
 *Functions: edgeDetect(matrix)
 Here, matrix=vector<vector<double>>
 *Global Variables: NONE
 */
 #include <bits/stdc++.h>
 #include "debayering.h"
-#include "Conversion.h"
+#include "conversion.h"
 using namespace std;
 using matrix = vector<vector<double>>;
 /*

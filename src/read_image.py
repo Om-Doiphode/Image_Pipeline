@@ -1,6 +1,6 @@
 
 #  Author: Om Doiphode
-#  Filename: Read_image.py
+#  Filename: read_image.py
 #  Functions: NONE
 #  Global Variable: NONE
 

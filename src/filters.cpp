@@ -1,6 +1,6 @@
 /*
  *Author List: Om Doiphode
- *Filename: Filters.cpp
+ *Filename: filters.cpp
  *Functions: filter(matrix)
              meanFilter(matrix , int)
              gaussianFilterCreation(int)
@@ -10,7 +10,7 @@
  */
 #include <bits/stdc++.h>
 #include "debayering.h"
-#include "WB.h"
+#include "auto_white_balance.h"
 using namespace std;
 using matrix = vector<vector<double>>;
 /*

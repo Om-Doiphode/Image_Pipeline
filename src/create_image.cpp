@@ -1,6 +1,6 @@
 /*
 *Author List: Om Doiphode
-*Filename: CreateImage.cpp
+*Filename: create_image.cpp
 *Functions: create2DImage(matrix),
             create3DImage(matrix)
 Here, matrix=vector<vector<double>>

@@ -1,6 +1,6 @@
 /*
  *Author List: Om Doiphode, Kedar Dhamankar
- *Filename: ColorSpace.cpp
+ *Filename: color_space_conversion.cpp
  *Functions: double sumOfRows(vector<double>),
              matrix inverse(matrix),
              vector<vector<vector<double>>> ColorConv(matrix, matrix, matrix)

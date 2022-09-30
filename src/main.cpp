@@ -13,14 +13,14 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 #include "debayering.h"
-#include "WB.h"
-#include "Gamma.h"
-#include "ColorSpace.h"
-#include "Conversion.h"
-#include "Morphology.h"
-#include "Filters.h"
-#include "Edges.h"
-#include "CreateImage.h"
+#include "auto_white_balance.h"
+#include "gamma.h"
+#include "color_space_conversion.h"
+#include "conversion.h"
+#include "morphology.h"
+#include "filters.h"
+#include "edges.h"
+#include "create_image.h"
 using namespace cv;
 using namespace std;
 using matrix = vector<vector<double>>;
@@ -37,7 +37,7 @@ using matrix = vector<vector<double>>;
 int main(int argc, char **argv)
 {
     string filename = argv[2]; // Getting the filename from the command line
-    string readCommand = "python3.8 /home/om/Documents/Image_Pipeline/src/Read_image.py " + filename;
+    string readCommand = "python3.8 src/read_image.py " + filename;
     int ret = system(readCommand.c_str()); // Calling the python program from the command line
     Mat im = imread(argv[2]);              // Reading the image
     int height = im.rows, width = im.cols; // Getting the height and width of the input image

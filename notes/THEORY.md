@@ -2,13 +2,13 @@
 <p>The image pipeline takes raw image from sensor and convert it to meaningful image. Several algorithms like debayering, Black Level correction, auto-white balance, denoising.. will be first implemented to construct a meaningful image. Then additional algorithms can be implemented on the constructed image to post-process it. Like Flipping, blending and overlaying images. All algorithms will be implemented on a static raw image captured from a sensor. The first part of this project is similar to what happens in an ISP (Image Signal Processor) in which all algorithms are designed based on hardware, but we will be designing those such that they are hardware independent.</p>
 
 ## CFA Image
-![RAW Image](/assests/FlashLight.png)
+![RAW Image](/assests/flashlight.png)
 
 
 ## Debayering
 Debayering, also known as demosaicing, is the process to convert a CFA image (m-by-n) to a true RGB color digital image (m-by-n-by-3).
 
-![Image after Debayering](/assests/Debayering.png)
+![Image after Debayering](/assests/debayering.png)
 <hr>
 
 ## White Balancing
@@ -30,7 +30,7 @@ Debayering, also known as demosaicing, is the process to convert a CFA image (m-
 r<sub>i</sub> = <sup>max(avg<sub>R</sub> + avg<sub>G</sub> + avg<sub>B</sub>)</sup> / <sub>avg<sub>i</sub></sub>
 
 
-![Image after White Balance](/assests/After_White_Balance.png)
+![Image after White Balance](/assests/after_white_balance.png)
 
 <hr>
 
@@ -52,10 +52,10 @@ r<sub>i</sub> = <sup>max(avg<sub>R</sub> + avg<sub>G</sub> + avg<sub>B</sub>)</s
 * <b>Gamma values < 1</b> will shift the image towards the <b>darker</b> end of the spectrum while <b>gamma values > 1</b> will make the image appear <b>lighter</b>.
 
 #### Gamma value less than 1
-![Image after Gamma Correction(<1)](/assests/After_gamma.png)
+![Image after Gamma Correction(<1)](/assests/after_gamma.png)
 
 #### Gamma value greater than 1
-![Image after Gamma Correction(<1)](/assests/Gamma>1.png)
+![Image after Gamma Correction(<1)](/assests/gamma>1.png)
 
 ## Black Level Correction -
 * Black level leads to the whitening of image's dark region and perceived loss of overall contrast
@@ -65,7 +65,7 @@ So the goal of this algorithm is to make Black to be Black
 * We start with finding the Global Threshold Value of the image and then we consider the pixels having intensity less than the global threshold value, these pixels are those pixels which are representing the dark section of the image. Then we reduce the intensity of those pixels, so that the whiteish black looks more black now.
 * Bands were being displayed because of abrupt change of intensity between the pixels of dark region and bright region, So to reduce the bands effect we added more conditions so the abrupt intensity change between the bright and dark region is smoothened out somewhat.
 
-![Image after Black Level Correction](/assests/BLC.png)
+![Image after Black Level Correction](/assests/blc.png)
 
 ## Auto Adjustments
 
@@ -87,10 +87,10 @@ You can calculate beta so that min(O) = 0;
 beta = -min(I) * alpha`
 
 ### Before
-![Image Before](/assests/RGB.png)
+![Image Before](/assests/rgb.png)
 
 ### After
-![Image After](/assests/RGB2.png)
+![Image After](/assests/rgb2.png)
 
 ## Conversion
 
@@ -106,7 +106,7 @@ beta = -min(I) * alpha`
 
 * Here most weight is given to green colored pixels as humans are said to percieve green light well .
 
-![Grayscale](/assests/Gray.png)
+![Grayscale](/assests/gray.png)
 
 ### Binary Conversion
 
@@ -135,9 +135,9 @@ beta = -min(I) * alpha`
    * Value computation : 
         * v = cmax*100
 
-![HSV-1](/assests/HSV.png)
+![HSV-1](/assests/hsv.png)
 
-![HSV-2](/assests/HSV2.png)
+![HSV-2](/assests/hsv2.png)
 
 # Morphological Operations
 Morphological transformations are some simple operations based on the image shape. It is normally performed on binary images. It needs two inputs, one is our original image, second one is called structuring element or kernel which decides the nature of operation. Two basic morphological operators are Erosion and Dilation. Then its variant forms like Opening, Closing, Gradient etc also comes into play.
@@ -152,9 +152,7 @@ Morphological transformations are some simple operations based on the image shap
 * So the thickness or size of the foreground object decreases or simply white region decreases in the image. 
 * It is useful for removing small white noises, detach two connected objects etc.
 
-![Erosion](/assests/Erode.png)
-
-![Erosion](/assests/Erode2.png)
+![Erosion](/assests/erode.png)
 
 ## (2) Dilation
 
@@ -163,20 +161,20 @@ Morphological transformations are some simple operations based on the image shap
 * Normally, in cases like noise removal, erosion is followed by dilation. Because, erosion removes white noises, but it also shrinks our object. So we dilate it. 
 * Since noise is gone, they won't come back, but our object area increases.
 
-![Dilation](/assests/Dilate.png)
+![Dilation](/assests/dilate.png)
 
 ## (3) Opening
 
 Opening is just another name of <b>erosion</b> followed by <b>dilation</b>. It is useful in removing noise, as we explained above. 
 
-![Opening](/assests/Opening.png)
+![Opening](/assests/opening.png)
 
 ## (4) Closing
 
 * <b>Reverse of Opening</b>, Dilation followed by Erosion. 
 * It is useful in closing small holes inside the foreground objects, or small black points on the object. 
 
-![Closing](/assests/Closing.png)
+![Closing](/assests/closing.png)
 
 ## (5) Morphological Gradient
 
@@ -184,7 +182,7 @@ Opening is just another name of <b>erosion</b> followed by <b>dilation</b>. It i
 
 * The result will look like the <b>outline</b> of the object.
 
-![Gradient](/assests/Gradient.png)
+![Gradient](/assests/gradient.png)
 
 
 ### YUV
@@ -244,9 +242,9 @@ Typically, an approximate magnitude is computed using:
 
 which is much faster to compute.  
 
-![Edges](/assests/Edges.png)
+![Edges](/assests/edges.png)
 
-![Edges-2](/assests/Edge4.png)
+![Edges-2](/assests/edge4.png)
 
 
 ## Blurring
@@ -268,7 +266,7 @@ In Gaussian Blur operation, the image is convolved with a Gaussian filter instea
 
 In 2-D, an isotropic (i.e. circularly symmetric) Gaussian has the form: 
 
-![Formula](/assests/GB.png)  
+![Formula](/assests/gb.png)  
 where &sigma; is the standard deviation of the distribution. 
 
 ### 3. Median Blurring

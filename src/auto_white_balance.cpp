@@ -1,6 +1,6 @@
 /*
  *Author List: Om Doiphode
- *Filename: WB.cpp
+ *Filename: auto_white_balance.cpp
  *Functions: averageofPixels(matrix),
             scale(matrix, double, double),
             maxNumber(double, double, double),
@@ -9,7 +9,7 @@
  *Global Variables: NONE
  */
 #include <bits/stdc++.h>
-#include "../include/debayering.h"
+#include "debayering.h"
 using namespace std;
 using matrix = vector<vector<double>>;
 /*
