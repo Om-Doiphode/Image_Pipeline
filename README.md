@@ -16,7 +16,6 @@
 - [Usage](#usage)
 - [Theory and Approach](#theory-and-approach)
 - [Results and Demo](#results-and-demo)
-- [Troubleshooting](#troubleshooting)
 - [Future Works](#future-works)
 - [Contributors](#contributors)
 - [Acknowledgements and Resources](#acknowledgements-and-resources)
@@ -252,6 +251,11 @@ Gradient             |  Mean Filter
 Gaussian Filter            |  Median Filter
 :-------------------------:|:-------------------------:
 <image src="assests/gaussianblur.png" alt = "GaussianBlur" width = 350>  | <image src="assests/median.png" alt = "Median" width = 350> 
+
+## Future Works
+We enjoyed working on this project, got to know more about image representation. We will try to
+1) Implement the library functions of OpenCV
+2) Extend the functionality to dynamic images.  
 
 ## Contributors
 * [Om Doiphode](https://github.com/HAWKEYE-HS)
