@@ -42,6 +42,7 @@ This section contains the technologies we used for this project.
 
     ├── assets                   # Folder containing pngs
     ├── notes                    # Notes of Debayering and other algorithms
+    ├── rawimages                # RAW Images used for testing
     ├── src                      # Source code files
         ├── CMakeLists.txt
         ├── color_space_conversion.cpp
