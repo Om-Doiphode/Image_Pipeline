@@ -25,10 +25,16 @@
 # About The Project
 <!-- Aim -->
 ## Aim
-JPEG images are the 'ready to view' processed outputs from a camera. In computational photography, it can be useful to work directly with the raw sensor data from a digital camera. So-called RAW processing and RAW files must generally be processed before they can be displayed. In this project, we will implement our own RAW image reader
+* JPEG images are the 'ready to view' processed outputs from a camera. 
+* In computational photography, it can be useful to work directly with the raw sensor data from a digital camera. 
+* So-called RAW processing and RAW files must generally be processed before they can be displayed. 
+* In this project, we will implement our own RAW image reader
 
 ## Description
-The image pipeline takes raw image from sensor and convert it to meaningful image. Several algorithms like debayering, Black Level correction, auto-white balance, denoising.. will be first implemented to construct a meaningful image. Then additional algorithms can be implemented on the constructed image to post-process it. Like Flipping, blending and overlaying images. All algorithms will be implemented on a static raw image captured from a sensor. The first part of this project is similar to what happens in an ISP (Image Signal Processor) in which all algorithms are designed based on hardware, but we will be designing those such that they are hardware independent.
+* The image pipeline takes raw image from sensor and convert it to meaningful image. Several algorithms like debayering, Black Level correction, auto-white balance, denoising.. will be first implemented to construct a meaningful image. 
+* Then additional algorithms can be implemented on the constructed image to post-process it. Like Flipping, blending and overlaying images. 
+* All algorithms will be implemented on a static raw image captured from a sensor. 
+* The first part of this project is similar to what happens in an ISP (Image Signal Processor) in which all algorithms are designed based on hardware, but we will be designing those such that they are hardware independent.
 
 ## Tech Stack
 This section contains the technologies we used for this project.
@@ -98,8 +104,8 @@ Refer [this](/notes/THEORY.md) for more info
 
 ### Debayering
 
-Debayering, also known as demosaicing, is the process to convert a CFA image (m-by-n) to a true RGB color digital image (m-by-n-by-3).
-Refer [this](/notes/DEBAYERING.md) for more info on debayering.
+* Debayering, also known as demosaicing, is the process to convert a CFA image (m-by-n) to a true RGB color digital image (m-by-n-by-3).
+* Refer [this](/notes/DEBAYERING.md) for more info on debayering.
 
 ### Black Level Correction
 Black level leads to the whitening of image's dark region and perceived loss of overall contrast
@@ -111,19 +117,19 @@ So the goal of this algorithm is to make Black to be Black
 * As such, this rescaling process is called white balancing. 
 
 ### Auto Adjustment
-Brightness and contrast is linear operator with parameter `alpha` and `beta`
+* Brightness and contrast is linear operator with parameter `alpha` and `beta`
 
 `O(x,y) = alpha * I(x,y) + beta`
 
-Looking at histogram, alpha operates as color range amplifier, beta operates as range shift.
+* Looking at histogram, alpha operates as color range amplifier, beta operates as range shift.
 
-Automatic brightness and contrast optimization calculates alpha and beta so that the output range is 0..255.
+* Automatic brightness and contrast optimization calculates alpha and beta so that the output range is 0..255.
 
 `input range = max(I) - min(I)
 wanted output range = 255;
 alpha = output range / input range =  255 / ( max(I) - min(I) )`
 
-You can calculate beta so that min(O) = 0;
+* You can calculate beta so that min(O) = 0;
 
 `min(O) = alpha * min(I) + beta
 beta = -min(I) * alpha`
@@ -156,7 +162,8 @@ beta = -min(I) * alpha`
 
 ### RGB --> HSV
 
-HSV – (hue, saturation, value), also known as HSB (hue, saturation, brightness), is often used by artists because it is often more natural to think about a color in terms of hue and saturation than in terms of additive or subtractive color components. HSV is a transformation of an RGB colorspace, and its components and colorimetry are relative to the RGB colorspace from which it was derived.
+* HSV – (hue, saturation, value), also known as HSB (hue, saturation, brightness), is often used by artists because it is often more natural to think about a color in terms of hue and saturation than in terms of additive or subtractive color components. 
+* HSV is a transformation of an RGB colorspace, and its components and colorimetry are relative to the RGB colorspace from which it was derived.
 
 ### Sobel Edge Detection
 
@@ -190,7 +197,10 @@ Opening is just another name of <b>erosion</b> followed by <b>dilation</b>. It i
 * The result will look like the <b>outline</b> of the object.
 
 ### Blurring
-Image blurring is achieved by convolving the image with a low-pass filter kernel. It is useful for removing noise. It actually removes high frequency content (eg: noise, edges) from the image. So edges are blurred a little bit in this operation (there are also blurring techniques which don't blur the edges). 
+* Image blurring is achieved by convolving the image with a low-pass filter kernel. 
+* It is useful for removing noise. 
+* It actually removes high frequency content (eg: noise, edges) from the image. 
+* So edges are blurred a little bit in this operation (there are also blurring techniques which don't blur the edges). 
 
 #### 1. Averaging
 
@@ -198,7 +208,8 @@ Image blurring is achieved by convolving the image with a low-pass filter kernel
 * It simply takes the average of all the pixels under the kernel area and replaces the central element. 
 
 #### 2. Gaussian Blur
-In Gaussian Blur operation, the image is convolved with a Gaussian filter instead of the box filter. The Gaussian filter is a low-pass filter that removes the high-frequency components.
+* In Gaussian Blur operation, the image is convolved with a Gaussian filter instead of the box filter. 
+* The Gaussian filter is a low-pass filter that removes the high-frequency components.
 
 #### 3. Median Blur
 * Here, the function takes the median of all the pixels under the kernel area and the central element is replaced with this median value. 
