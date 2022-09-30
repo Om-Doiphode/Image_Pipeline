@@ -13,8 +13,8 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Theory and Approach](#theory-and-approach)
 - [Usage](#usage)
+- [Theory and Approach](#theory-and-approach)
 - [Results and Demo](#results-and-demo)
 - [Troubleshooting](#troubleshooting)
 - [Future Works](#future-works)
@@ -80,6 +80,17 @@ To download and use this code, the minimum requirements are:
 Clone the repo
 
 ` git clone https://github.com/HAWKEYE-HS/Image_Pipeline`
+
+## Usage
+Once the requirements are satisfied, you can easily download the project and use it on your machine.
+
+1) First navigate to the folder Image_Pipeline
+2) `mkdir build`
+3) `cd build`
+4) `cmake ../src`
+5) `make`
+6) `dcraw -4 -d -v -T <raw_file_name>`
+6) `../bin/working  <gamma_value> <path_to_image_file (.tiff file)>`
 
 ## Theory and Approach
 Refer [this](/notes/THEORY.md) for more info
@@ -192,16 +203,6 @@ In Gaussian Blur operation, the image is convolved with a Gaussian filter instea
 * Here, the function takes the median of all the pixels under the kernel area and the central element is replaced with this median value. 
 * This is highly effective against salt-and-pepper noise in an image. 
 
-## Usage
-Once the requirements are satisfied, you can easily download the project and use it on your machine.
-
-1) First navigate to the folder Image_Pipeline
-2) `mkdir build`
-3) `cd build`
-4) `cmake ../src`
-5) `make`
-6) `dcraw -4 -d -v -T <raw_file_name>`
-6) `../bin/working  <gamma_value> <path_to_image_file (.tiff file)>`
 
 ## Results and Demo
 ### Preprocessing Results
