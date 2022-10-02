@@ -2,7 +2,7 @@
 * Author List: Kedar Dhamankar
 * Filename: AutoExposure.cpp
 * Functions: Find_Mean, AutoExposure
-* Global Variables: height, width, Image
+* Global Variables: matrix (2d vector)
 */ 
 
 #include <bits/stdc++.h>
