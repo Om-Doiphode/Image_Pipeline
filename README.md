@@ -1,5 +1,5 @@
 # Image Pipeline
-![Image Pipeline](/assests/intro.gif)
+![Image Pipeline](/assets/intro.gif)
 <!-- TABLE OF CONTENTS -->
 # Table of Contents
 
@@ -141,7 +141,7 @@ beta = -min(I) * alpha`
 
    Where <b>I</b> is our input image and <b>G</b> is our gamma value. The output image <b>O</b> is then scaled back to the range [0, 255].
 
-![Preprocessing](/assests/preprocessing.png)
+![Preprocessing](/assets/preprocessing.png)
 
 ### RGB --> Grayscale
 
@@ -219,38 +219,38 @@ Opening is just another name of <b>erosion</b> followed by <b>dilation</b>. It i
 ### Preprocessing Results
 RAW Image           |  Preprocessed Image
 :-------------------------:|:-------------------------:
-<image src="assests/image3o.png" alt = "Image1" width = 350 height="200">  | <image src="assests/image3.png" alt = "PreImage" width = 350 height="200"> 
-<image src="assests/imageoutput2.png" alt = "Image1" width = 350 height="200">  | <image src="assests/imageoutput1.png" alt = "PreImage" width = 350 height="200">
-<image src="assests/image2o.png" alt = "Image1" width = 350 height="200">  | <image src="assests/image2.png" alt = "PreImage" width = 350 height="200">
-<image src="assests/image4.png" alt = "Image1" width = 350 height="200">  | <image src="assests/image4o.png" alt = "PreImage" width = 350 height="200">
-<image src="assests/flash.png" alt = "Image1" width = 350 height="200">  | <image src="assests/flasho.png" alt = "PreImage" width = 350 height="200">
+<image src="assets/image3o.png" alt = "Image1" width = 350 height="200">  | <image src="assets/image3.png" alt = "PreImage" width = 350 height="200"> 
+<image src="assets/imageoutput2.png" alt = "Image1" width = 350 height="200">  | <image src="assets/imageoutput1.png" alt = "PreImage" width = 350 height="200">
+<image src="assets/image2o.png" alt = "Image1" width = 350 height="200">  | <image src="assets/image2.png" alt = "PreImage" width = 350 height="200">
+<image src="assets/image4.png" alt = "Image1" width = 350 height="200">  | <image src="assets/image4o.png" alt = "PreImage" width = 350 height="200">
+<image src="assets/flash.png" alt = "Image1" width = 350 height="200">  | <image src="assets/flasho.png" alt = "PreImage" width = 350 height="200">
 
 <hr>
 
 ### Post-Processing
 Grayscale Conversion             |  Binary conversion
 :-------------------------:|:-------------------------:
-<image src="assests/gray.png" alt = "gray" width = 350>  | <image src="assests/binary.png" alt = "grayscale" width = 350> 
+<image src="assets/gray.png" alt = "gray" width = 350>  | <image src="assets/binary.png" alt = "grayscale" width = 350> 
 
 HSV Conversion             |   Sobel Edge Detection
 :-------------------------:|:-------------------------:
-<image src="assests/hsv.png" alt = "HSV" width = 350>  | <image src="assests/edges.png" alt = "Edges" width = 350> 
+<image src="assets/hsv.png" alt = "HSV" width = 350>  | <image src="assets/edges.png" alt = "Edges" width = 350> 
 
 Erosion          |  Dilation
 :-------------------------:|:-------------------------:
-<image src="assests/erode.png" alt = "Erode" width = 350>  | <image src="assests/dilate.png" alt = "Dilate" width = 350> 
+<image src="assets/erode.png" alt = "Erode" width = 350>  | <image src="assets/dilate.png" alt = "Dilate" width = 350> 
 
 Opening             |  Closing
 :-------------------------:|:-------------------------:
-<image src="assests/opening.png" alt = "Opening" width = 350>  | <image src="assests/closing.png" alt = "Closing" width = 350> 
+<image src="assets/opening.png" alt = "Opening" width = 350>  | <image src="assets/closing.png" alt = "Closing" width = 350> 
 
 Gradient             |  Mean Filter
 :-------------------------:|:-------------------------:
-<image src="assests/gradient.png" alt = "Gradient" width = 350>  | <image src="assests/meanblur.png" alt = "MeanBlur" width = 350> 
+<image src="assets/gradient.png" alt = "Gradient" width = 350>  | <image src="assets/meanblur.png" alt = "MeanBlur" width = 350> 
 
 Gaussian Filter            |  Median Filter
 :-------------------------:|:-------------------------:
-<image src="assests/gaussianblur.png" alt = "GaussianBlur" width = 350>  | <image src="assests/median.png" alt = "Median" width = 350> 
+<image src="assets/gaussianblur.png" alt = "GaussianBlur" width = 350>  | <image src="assets/median.png" alt = "Median" width = 350> 
 
 ## Future Works
 We enjoyed working on this project, got to know more about image representation. We will try to
