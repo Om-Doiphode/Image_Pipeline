@@ -89,41 +89,7 @@ matrix conv2D(matrix img, matrix kernal, int n = 8)
     cout << endl;
     return ret;
 }
-matrix AutoExposure(matrix image, matrix grayImage)
-{
-    matrix res(image.size(), vector<double>(image[0].size(), 0));
-    double X, X1, G;
 
-    for (int i = 0; i < 480; i++)
-    {
-        for (int j = 0; j < 640; j++)
-        {
-            // f1 >> X;
-            // f3 >> G;
-            if (G < 0.5)
-            {
-                X1 = image[i][j] + 0.05;
-                // f2 << X1 << " ";
-                res[i][j] = X1;
-            }
-
-            else if (G > 0.5)
-            {
-                X1 = image[i][j] - 0.1;
-                // f2 << X1 << " ";
-                res[i][j] = X1;
-            }
-
-            else
-            {
-                // f2 << X << " ";
-                res[i][j] = X;
-            }
-        }
-        // f2 << endl;
-    }
-    return res;
-}
 /*
  * Function Name: G_at_B_R
  * Input: image -> 2D vector (single channel)
@@ -140,6 +106,8 @@ matrix G_at_BR(matrix &image)
         {0.0, 0.0, -1.0, 0.0, 0.0}};
     return conv2D(image, kernel);
 }
+
+
 /*
  * Function Name: RB_at_G_in_RBrow_BRcol
  * Input: image -> 2D vector (single channel)
@@ -156,6 +124,8 @@ matrix RB_at_G_in_RBrow_BRcol(matrix &image)
                      {0, 0, 0.5, 0, 0}};
     return conv2D(image, kernel);
 }
+
+
 /*
  * Function Name: RB_at_G_in_BRrow_RBcol
  * Input: image -> 2D vector (single channel)
@@ -172,6 +142,8 @@ matrix RB_at_G_in_BRrow_RBcol(matrix &image)
                      {0, 0, -1, 0, 0}};
     return conv2D(image, kernel);
 }
+
+
 /*
  * Function Name: RB_at_BR
  * Input: image -> 2D vector (single channel)
@@ -188,6 +160,7 @@ matrix RB_at_BR(matrix &image)
                      {0, 0, -1.5, 0, 0}};
     return conv2D(image, kernel);
 }
+
 
 vector<vector<vector<double>>> autoAdjust(matrix R, matrix G, matrix B, int height, int width)
 {
@@ -237,6 +210,8 @@ vector<vector<vector<double>>> autoAdjust(matrix R, matrix G, matrix B, int heig
     new_image.push_back(O_B);
     return new_image;
 }
+
+
 /*
  * Function Name: debayering
  * Input: image -> 2D vector (single channel)
@@ -378,6 +353,8 @@ vector<vector<vector<double>>> debayering(matrix image, int height, int width)
     cout << "Debayering done" << endl;
     return debayered_image;
 }
+
+
 double maxPixelvalue(matrix image)
 {
     double maxVal = image[0][0];
@@ -390,62 +367,4 @@ double maxPixelvalue(matrix image)
         }
     }
     return maxVal;
-}
-
-matrix blackLevelCorrection(matrix image)
-{
-    double maxVal = maxPixelvalue(image);
-    matrix res(image.size(), vector<double>(image[0].size(), 0));
-    double glob_thresh_val = maxVal / 2;
-    for (int i = 0; i < image.size(); i++)
-    {
-        for (int j = 0; j < image[0].size(); j++)
-        {
-            if (image[i][j] <= glob_thresh_val)
-            {
-                res[i][j] = image[i][j] - 0.001 * image[i][j];
-            }
-            else if (image[i][j] <= 0.55 * maxVal) // 0.5 < intensity <= 0.55
-            {
-                res[i][j] = image[i][j] - 0.25 * image[i][j];
-            }
-            else if (image[i][j] <= 0.59 * maxVal) // 0.55 < intensity <= 0.59
-            {
-                res[i][j] = image[i][j] - 0.20 * image[i][j];
-            }
-            else if (image[i][j] <= 0.63 * maxVal) // 0.59 < intensity <= 0.63
-            {
-                res[i][j] = image[i][j] - 0.15 * image[i][j];
-            }
-            else if (image[i][j] <= 0.65 * maxVal) // 0.63 < intensity <= 0.65
-            {
-                res[i][j] = image[i][j] - 0.10 * image[i][j];
-            }
-            else if (image[i][j] <= 0.66 * maxVal) // 0.65 < intensity <= 0.66
-            {
-                res[i][j] = image[i][j] - 0.06 * image[i][j];
-            }
-            else if (image[i][j] <= 0.67 * maxVal) // 0.66 < intensity <= 0.67
-            {
-                res[i][j] = image[i][j] - 0.03 * image[i][j];
-            }
-            else if (image[i][j] <= 0.68 * maxVal) // 0.67 < intensity <= 0.68
-            {
-                res[i][j] = image[i][j] - 0.01 * image[i][j];
-            }
-            else if (image[i][j] <= 0.69 * maxVal) // 0.68 < intensity <= 0.69
-            {
-                res[i][j] = image[i][j] - 0.005 * image[i][j];
-            }
-            else if (image[i][j] <= 0.70 * maxVal) // 0.69 < intensity <= 0.70
-            {
-                res[i][j] = image[i][j] - 0.001 * image[i][j];
-            }
-            else
-            {
-                res[i][j] = image[i][j];
-            }
-        }
-    }
-    return res;
 }
