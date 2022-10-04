@@ -21,6 +21,7 @@
 #include "filters.h"
 #include "edges.h"
 #include "create_image.h"
+#include "auto_exposure.h"
 using namespace cv;
 using namespace std;
 using matrix = vector<vector<double>>;
@@ -37,7 +38,7 @@ using matrix = vector<vector<double>>;
 int main(int argc, char **argv)
 {
     string filename = argv[2]; // Getting the filename from the command line
-    string readCommand = "python3.8 src/read_image.py " + filename;
+    string readCommand = "python3.8 ../src/read_image.py " + filename;
     int ret = system(readCommand.c_str()); // Calling the python program from the command line
     Mat im = imread(argv[2]);              // Reading the image
     int height = im.rows, width = im.cols; // Getting the height and width of the input image

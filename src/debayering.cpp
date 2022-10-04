@@ -107,7 +107,6 @@ matrix G_at_BR(matrix &image)
     return conv2D(image, kernel);
 }
 
-
 /*
  * Function Name: RB_at_G_in_RBrow_BRcol
  * Input: image -> 2D vector (single channel)
@@ -124,7 +123,6 @@ matrix RB_at_G_in_RBrow_BRcol(matrix &image)
                      {0, 0, 0.5, 0, 0}};
     return conv2D(image, kernel);
 }
-
 
 /*
  * Function Name: RB_at_G_in_BRrow_RBcol
@@ -143,7 +141,6 @@ matrix RB_at_G_in_BRrow_RBcol(matrix &image)
     return conv2D(image, kernel);
 }
 
-
 /*
  * Function Name: RB_at_BR
  * Input: image -> 2D vector (single channel)
@@ -160,7 +157,6 @@ matrix RB_at_BR(matrix &image)
                      {0, 0, -1.5, 0, 0}};
     return conv2D(image, kernel);
 }
-
 
 vector<vector<vector<double>>> autoAdjust(matrix R, matrix G, matrix B, int height, int width)
 {
@@ -210,7 +206,6 @@ vector<vector<vector<double>>> autoAdjust(matrix R, matrix G, matrix B, int heig
     new_image.push_back(O_B);
     return new_image;
 }
-
 
 /*
  * Function Name: debayering
@@ -354,7 +349,14 @@ vector<vector<vector<double>>> debayering(matrix image, int height, int width)
     return debayered_image;
 }
 
-
+/*
+* Function Name: maxPixelvalue
+* Input: Passes 2d image vector of whose maximum pixel value is to be found
+* Output: Returns the maximum pixel value of the image matrix
+* Logic: Loops through the matrix and checks if each value is greater than maxVal at each iteration
+         If yes, then that value is made the maxVal
+* Example Call: maxPixelValue(image);
+*/
 double maxPixelvalue(matrix image)
 {
     double maxVal = image[0][0];
