@@ -48,8 +48,11 @@ This section contains the technologies we used for this project.
     ├── assets                   # Folder containing pngs
     ├── notes                    # Notes of Debayering and other algorithms
     ├── rawimages                # RAW Images used for testing
-    ├── src                      # Source code files
+    ├── src                      # Source code files        
         ├── CMakeLists.txt
+        ├── auto_exposure.cpp
+        ├── auto_white_balance.cpp
+        ├── black_level_correction.cpp
         ├── color_space_conversion.cpp
         ├── conversion.cpp
         ├── create_image.cpp
@@ -59,17 +62,19 @@ This section contains the technologies we used for this project.
         ├── filters.cpp
         ├── gamma.cpp
         ├── main.cpp
+        ├── morphology.cpp
         ├── read_image.py
-        ├── auto_white_balance.cpp
     ├── include                  # Header files
+        ├── auto_exposure.h
+        ├── auto_white_balance.h
+        ├── black_level_correction.h
         ├── color_space_conversion.h
         ├── conversion.h
         ├── create_image.h
         ├── debayering.h
         ├── edges.h
         ├── filters.h
-        ├── gamma.h
-        ├── auto_white_balance.h          
+        ├── gamma.h         
     ├── LICENSE                  # MIT license
     ├── README.md                # readme.md
 
