@@ -14,5 +14,5 @@ link_directories("${CMAKE_SOURCE_DIR}/../include")
 # include_directories(${OpenCV_INCLUDE_DIRS})
 find_package(OpenCV REQUIRED)
 
-add_executable(working ${PROJECT_SOURCE_DIR}/auto_white_balance.cpp ${PROJECT_SOURCE_DIR}/color_space_conversion.cpp ${PROJECT_SOURCE_DIR}/conversion.cpp  ${PROJECT_SOURCE_DIR}/create_image.cpp ${PROJECT_SOURCE_DIR}/debayering.cpp ${PROJECT_SOURCE_DIR}/black_level_correction.cpp ${PROJECT_SOURCE_DIR}/auto_exposure.cpp ${PROJECT_SOURCE_DIR}/edges.cpp ${PROJECT_SOURCE_DIR}/filters.cpp ${PROJECT_SOURCE_DIR}/gamma.cpp ${PROJECT_SOURCE_DIR}/main.cpp ${PROJECT_SOURCE_DIR}/morphology.cpp)
+add_executable(working ${PROJECT_SOURCE_DIR}/auto_white_balance.cpp ${PROJECT_SOURCE_DIR}/color_space_conversion.cpp ${PROJECT_SOURCE_DIR}/conversion.cpp  ${PROJECT_SOURCE_DIR}/create_image.cpp ${PROJECT_SOURCE_DIR}/debayering.cpp ${PROJECT_SOURCE_DIR}/black_level_correction.cpp ${PROJECT_SOURCE_DIR}/auto_exposure.cpp ${PROJECT_SOURCE_DIR}/edges.cpp ${PROJECT_SOURCE_DIR}/filters.cpp ${PROJECT_SOURCE_DIR}/gamma.cpp ${PROJECT_SOURCE_DIR}/main.cpp ${PROJECT_SOURCE_DIR}/morphology.cpp ${PROJECT_SOURCE_DIR}/rotate.cpp)
 target_link_libraries(working ${OpenCV_LIBS})

@@ -72,9 +72,9 @@ Mat create3DImage(matrix image1, matrix image2, matrix image3)
         }
     }
     // Creating a 3D image
-    rgb_image.push_back(b_img);
-    rgb_image.push_back(g_img);
     rgb_image.push_back(r_img);
+    rgb_image.push_back(g_img);
+    rgb_image.push_back(b_img);
 
     Mat final_image;
     // Merging the color channels
