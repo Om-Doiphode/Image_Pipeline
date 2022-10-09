@@ -116,5 +116,5 @@ matrix gaussianFilter(matrix image, int kernel_size = 3)
     //         double temp = image[i - 1][j - 1] * kernel[0][0] + image[i - 1][j] * kernel[0][1] + image[i - 1][j + 1] * kernel[0][2] + image[i][j - 1] * kernel[1][0] + image[i][j] * kernel[1][1] + image[i][j + 1] * kernel[1][2] + image[i + 1][j - 1] * kernel[2][0] + image[i + 1][j] * kernel[2][1] + image[i + 1][j + 1] * kernel[2][2];
     //         res[i][j] = temp;
     //     }
-    return conv2D(image, kernel, 2);
+    return conv2D(image, kernel, 1);
 }

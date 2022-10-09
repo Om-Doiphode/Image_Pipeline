@@ -108,7 +108,9 @@ matrix Erosion(matrix img, int kernel_size = 3)
             else
                 new_image[i][j] = 0;
         }
+        cout << "\r [" << ceil(i * 100 / y1) << '%' << "] ";
     }
+    cout << endl;
     return new_image;
 }
 /*
@@ -118,23 +120,21 @@ matrix Erosion(matrix img, int kernel_size = 3)
  * Logic: A 3x3 kernel is slid across the image. The output is 1 if at least one of the input pixels (under the kernel) is 1. Otherwise, the output is 0.
  * Example Call: Dilation(image)
  */
-matrix Dilation(matrix img)
+matrix Dilation(matrix img, int kernel_size = 3)
 {
-    matrix kernal = {{0, 1, 0},
-                     {1, 1, 1},
-                     {0, 1, 0}};
+    matrix kernal(kernel_size, vector<double>(kernel_size, 1));
     matrix new_image(img.size(), vector<double>(img[0].size(), 0));
     int addition = sum(kernal);
     int m = kernal.size(), n = kernal[0].size();
     int y = img.size(), x = img[0].size();
     int y1 = y - m + 1;
     int x1 = x - n + 1;
-    for (int i = 1; i < img.size() - 1; i++)
+    for (int i = 1; i < y1; i++)
     {
-        for (int j = 1; j < img[0].size() - 1; j++)
+        for (int j = 1; j < x1; j++)
         {
-            matrix temp = vectorSlice(img, i - 1, i + 2, j - 1, j + 2);
-            double product = sum(multiply(temp, kernal));
+            // matrix temp = vectorSlice(img, i - 1, i + 2, j - 1, j + 2);
+            double product = sum(multiply(vectorSlice(img, i, i + m, j, j + n), kernal));
             if (product > 0)
             {
                 new_image[i][j] = 1;
@@ -144,7 +144,9 @@ matrix Dilation(matrix img)
                 new_image[i][j] = 0;
             }
         }
+        cout << "\r [" << ceil(i * 100 / y1) << '%' << "] ";
     }
+    cout << endl;
     return new_image;
 }
 /*
@@ -154,10 +156,10 @@ matrix Dilation(matrix img)
  * Logic: First dilation is applied by calling the Dilation function and then Erosion function is called to apply erosion.
  * Example Call: Closing(image)
  */
-matrix Closing(matrix image)
+matrix Closing(matrix image, int kernel_size = 3)
 {
-    matrix final_image = Erosion(image);
-    matrix final_image2 = Dilation(final_image);
+    matrix final_image = Erosion(image, kernel_size);
+    matrix final_image2 = Dilation(final_image, kernel_size);
     return final_image2;
 }
 /*
@@ -167,10 +169,10 @@ matrix Closing(matrix image)
  * Logic: First erosion is applied by calling the Erosion function and then Dilation function is called to apply dilation.
  * Example Call: Opening(image)
  */
-matrix Opening(matrix image)
+matrix Opening(matrix image, int kernel_size = 3)
 {
-    matrix final_image = Dilation(image);
-    matrix final_image2 = Erosion(final_image);
+    matrix final_image = Dilation(image, kernel_size);
+    matrix final_image2 = Erosion(final_image, kernel_size);
     return final_image2;
 }
 /*
@@ -180,10 +182,10 @@ matrix Opening(matrix image)
  * Logic: First the image is dilated and then the original image is eroded. The difference between the dilated and eroded image gives the gradient.
  * Example Call: Gradient(image)
  */
-matrix Gradient(matrix image)
+matrix Gradient(matrix image, int kernel_size)
 {
-    matrix dilated = Dilation(image);
-    matrix eroded = Erosion(image);
+    matrix dilated = Dilation(image, kernel_size);
+    matrix eroded = Erosion(image, kernel_size);
     matrix final_image(image.size(), vector<double>(image[0].size(), 0));
     for (int i = 0; i < image.size(); i++)
     {
@@ -193,4 +195,44 @@ matrix Gradient(matrix image)
         }
     }
     return final_image;
+}
+matrix topHat(matrix image, int kernel_size)
+{
+    matrix opened_image = Opening(image, kernel_size);
+    matrix res(image.size(), vector<double>(image[0].size(), 0));
+    for (int i = 0; i < image.size(); i++)
+    {
+        for (int j = 0; j < image[0].size(); j++)
+        {
+            res[i][j] = image[i][j] - opened_image[i][j];
+        }
+    }
+    return res;
+}
+matrix blackHat(matrix image, int kernel_size)
+{
+    matrix closed_image = Closing(image);
+    matrix res(image.size(), vector<double>(image[0].size(), 0));
+    for (int i = 0; i < image.size(); i++)
+    {
+        for (int j = 0; j < image[0].size(); j++)
+        {
+            res[i][j] = closed_image[i][j] - image[i][j];
+        }
+    }
+    return res;
+}
+matrix constrastAdjust(matrix image, int kernel_size)
+{
+    matrix top = topHat(image, kernel_size);
+    matrix dark = blackHat(image, kernel_size);
+    matrix res(image.size(), vector<double>(image[0].size(), 0));
+    for (int i = 0; i < image.size(); i++)
+    {
+        for (int j = 0; j < image[0].size(); j++)
+        {
+            res[i][j] = image[i][j] + top[i][j] - dark[i][j];
+        }
+    }
+    return res;
 }
