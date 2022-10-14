@@ -21,7 +21,6 @@
 #include "filters.h"
 #include "edges.h"
 #include "create_image.h"
-#include "auto_exposure.h"
 #include "rotate.h"
 using namespace cv;
 using namespace std;
@@ -84,12 +83,12 @@ int main(int argc, char **argv)
     {
         cout << "___________________________________________" << endl;
         cout << "################################ Menu ################################# " << endl;
-        cout << "1: White Balanced Image" << endl;
+        cout << "1: Debayered Image" << endl;
         cout << "2: Gamma corrected Image" << endl;
         cout << "3: RGB --> Grayscale Image" << endl;
         cout << "4: Grayscale --> Binary Image" << endl;
         cout << "5: Edge Detection" << endl;
-        cout << "6: Blur Image" << endl;
+        cout << "6: Blurred Image" << endl;
         cout << "7: RGB --> HSV Image" << endl;
         cout << "8: Morphological Operations" << endl;
         cout << "9: Rotate the image" << endl;
@@ -106,6 +105,8 @@ int main(int argc, char **argv)
             // Scaling the image so that it can be saved.
             final_image.convertTo(final_image, CV_8UC3, 255.0);
             imwrite("Output.png", final_image);
+            resize(final_image, final_image, Size(700, 700));
+            imshow("Debayered Image", final_image);
             cout << "\n\nImage saved as \"Output.png\"" << endl;
         }
         else if (choice == "2")
@@ -117,6 +118,8 @@ int main(int argc, char **argv)
             Mat gammacorrectedimage = create3DImage(R, G, B);
             gammacorrectedimage.convertTo(gammacorrectedimage, CV_8UC3, 255.0);
             imwrite("Gamma.png", gammacorrectedimage);
+            resize(gammacorrectedimage, gammacorrectedimage, Size(700, 700));
+            imshow("Gamma", gammacorrectedimage);
             cout << "\n\nImage saved as \"Gamma.png\"" << endl;
         }
         else if (choice == "3")
@@ -124,6 +127,8 @@ int main(int argc, char **argv)
             Mat grayImage = create2DImage(cvtGray(R, G, B));
             grayImage.convertTo(grayImage, CV_8UC3, 255.0);
             imwrite("Grayscale.png", grayImage);
+            resize(grayImage, grayImage, Size(500, 500));
+            imshow("Grayscale", grayImage);
             cout << "\n\nImage saved as \"Grayscale.png\"" << endl;
         }
         else if (choice == "4")
@@ -131,6 +136,8 @@ int main(int argc, char **argv)
             Mat binImage = create2DImage(cvtBinary(cvtGray(R, G, B)));
             binImage.convertTo(binImage, CV_8UC3, 255.0);
             imwrite("BinaryImage.png", binImage);
+            resize(binImage, binImage, Size(500, 500));
+            imshow("Binary", binImage);
             cout << "\n\nImage saved as \"BinaryImage.png\"" << endl;
         }
         else if (choice == "5")
@@ -138,6 +145,8 @@ int main(int argc, char **argv)
             Mat edges = create2DImage(edgeDetect(R, G, B));
             edges.convertTo(edges, CV_8UC3, 255.0);
             imwrite("Edges.png", edges);
+            resize(edges, edges, Size(500, 500));
+            imshow("Edges", edges);
             cout << "\n\nImage saved as \"Edges.png\"" << endl;
         }
         else if (choice == "6")
@@ -164,6 +173,8 @@ int main(int argc, char **argv)
                 blur_image.convertTo(blur_image, CV_8UC3, 255.0);
 
                 imwrite("Mean_Blur_Image.png", blur_image);
+                resize(blur_image, blur_image, Size(500, 500));
+                imshow("Mean Blur", blur_image);
                 cout << "\n\nImage saved as \"Mean_Blur_Image.png\"" << endl;
             }
             else if (ch == "Md")
@@ -176,6 +187,8 @@ int main(int argc, char **argv)
                 blur_image.convertTo(blur_image, CV_8UC3, 255.0);
 
                 imwrite("Median_Blur_Image.png", blur_image);
+                resize(blur_image, blur_image, Size(500, 500));
+                imshow("Median", blur_image);
                 cout << "\n\nImage saved as \"Median_Blur_Image.png\"" << endl;
             }
             else if (ch == "G")
@@ -191,6 +204,8 @@ int main(int argc, char **argv)
                 blur_image.convertTo(blur_image, CV_8UC3, 255.0);
 
                 imwrite("Gaussian_Blur_Image.png", blur_image);
+                resize(blur_image, blur_image, Size(500, 500));
+                imshow("Gaussian Blur", blur_image);
                 cout << "\n\nImage saved as \"Gaussian_Blur_Image.png\"" << endl;
             }
         }
@@ -200,6 +215,8 @@ int main(int argc, char **argv)
             Mat hsvImage = create3DImage(hsv[0], hsv[1], hsv[2]);
             hsvImage.convertTo(hsvImage, CV_8UC3, 255.0);
             imwrite("HSVImage.png", hsvImage);
+            resize(hsvImage, hsvImage, Size(500, 500));
+            imshow("HSV", hsvImage);
             cout << "\n\nImage saved as \"HSVImage.png\"" << endl;
         }
         else if (choice == "8")
@@ -225,6 +242,8 @@ int main(int argc, char **argv)
                 Mat eroded_image = create2DImage(Erosion(cvtGray(R, G, B), n));
                 eroded_image.convertTo(eroded_image, CV_8UC3, 255.0);
                 imwrite("Erosion.png", eroded_image);
+                resize(eroded_image, eroded_image, Size(500, 500));
+                imshow("Erosion", eroded_image);
                 cout << "\n\nImage saved as \"Erosion.png\"" << endl;
             }
             else if (ch == "D")
@@ -235,6 +254,8 @@ int main(int argc, char **argv)
                 Mat dilated_image = create2DImage(Dilation(cvtGray(R, G, B), n));
                 dilated_image.convertTo(dilated_image, CV_8UC3, 255.0);
                 imwrite("Dilation.png", dilated_image);
+                resize(dilated_image, dilated_image, Size(500, 500));
+                imshow("Dilation", dilated_image);
                 cout << "\n\nImage saved as \"Dilation.png\"" << endl;
             }
             else if (ch == "O")
@@ -245,6 +266,8 @@ int main(int argc, char **argv)
                 Mat opened_image = create2DImage(Opening(cvtGray(R, G, B), n));
                 opened_image.convertTo(opened_image, CV_8UC3, 255.0);
                 imwrite("Opening.png", opened_image);
+                resize(opened_image, opened_image, Size(500, 500));
+                imshow("Opening", opened_image);
                 cout << "\n\nImage saved as \"Opening.png\"" << endl;
             }
             else if (ch == "C")
@@ -255,6 +278,8 @@ int main(int argc, char **argv)
                 Mat closed_image = create2DImage(Closing(cvtGray(R, G, B), n));
                 closed_image.convertTo(closed_image, CV_8UC3, 255.0);
                 imwrite("Closing.png", closed_image);
+                resize(closed_image, closed_image, Size(500, 500));
+                imshow("Closing", closed_image);
                 cout << "\n\nImage saved as \"Closing.png\"" << endl;
             }
             else if (ch == "G")
@@ -265,6 +290,8 @@ int main(int argc, char **argv)
                 Mat gradient_image = create2DImage(Gradient(cvtGray(R, G, B), n));
                 gradient_image.convertTo(gradient_image, CV_8UC3, 255.0);
                 imwrite("Gradient.png", gradient_image);
+                resize(gradient_image, gradient_image, Size(500, 500));
+                imshow("Gradient", gradient_image);
                 cout << "\n\nImage saved as \"Gradient.png\"" << endl;
             }
             else if (ch == "T")
@@ -275,6 +302,8 @@ int main(int argc, char **argv)
                 Mat topHat_image = create2DImage(topHat(cvtGray(R, G, B), n));
                 topHat_image.convertTo(topHat_image, CV_8UC3, 255.0);
                 imwrite("TopHat.png", topHat_image);
+                resize(topHat_image, topHat_image, Size(500, 500));
+                imshow("TopHat", topHat_image);
                 cout << "\n\nImage saved as \"TopHat.png\"" << endl;
             }
             else if (ch == "B")
@@ -285,6 +314,8 @@ int main(int argc, char **argv)
                 Mat blackHat_image = create2DImage(blackHat(cvtGray(R, G, B), n));
                 blackHat_image.convertTo(blackHat_image, CV_8UC3, 255.0);
                 imwrite("BlackHat.png", blackHat_image);
+                resize(blackHat_image, blackHat_image, Size(500, 500));
+                imshow("BlackHat", blackHat_image);
                 cout << "\n\nImage saved as \"BlackHat.png\"" << endl;
             }
         }
@@ -299,7 +330,9 @@ int main(int argc, char **argv)
             Mat rotated_image = create3DImage(R_rotated, G_rotated, B_rotated);
             rotated_image.convertTo(rotated_image, CV_8UC3, 255.0);
             imwrite("Rotated.png", rotated_image);
-            cout << "\n\nImage saved as \"Rotated.png\"" << endl;
+            resize(rotated_image, rotated_image, Size(500, 500));
+            imshow("Rotated", rotated_image);
         }
     } while (choice != "q");
+    waitKey(0);
 }

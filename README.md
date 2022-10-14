@@ -217,7 +217,10 @@ Opening is just another name of <b>erosion</b> followed by <b>dilation</b>. It i
 
 #### 3. Median Blur
 * Here, the function takes the median of all the pixels under the kernel area and the central element is replaced with this median value. 
-* This is highly effective against salt-and-pepper noise in an image. 
+* This is highly effective against salt-and-pepper noise in an image.
+
+### Rotation
+![Rotation](assets/Rotation.png)
 
 
 ## Results and Demo
@@ -255,7 +258,11 @@ Gradient             |  Mean Filter
 
 Gaussian Filter            |  Median Filter
 :-------------------------:|:-------------------------:
-<image src="assets/gaussianblur.png" alt = "GaussianBlur" width = 350>  | <image src="assets/median.png" alt = "Median" width = 350> 
+<image src="assets/gaussianblur.png" alt = "GaussianBlur" width = 350>  | <image src="assets/median.png" alt = "Median" width = 350>
+
+Original Image            |  Rotated Image(120<sup>o</sup>)
+:-------------------------:|:-------------------------:
+<image src="assets/median.png" alt = "GaussianBlur" width = 350>  | <image src="assets/Rotated.png" alt = "Median" width = 350>
 
 ## Future Works
 We enjoyed working on this project, got to know more about image representation. We will try to
