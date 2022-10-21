@@ -120,6 +120,11 @@ So the goal of this algorithm is to make Black to be Black
 * As it is usually possible to identify objects that should be white, we will find a pixel we know should be white (or gray), which we know should have RGB values all equal, and then we find the scaling factors necessary to force each channel's value to be equal. 
 * As such, this rescaling process is called white balancing. 
 
+### Auto Exposure
+* If too much light strikes the image sensor, the image will be overexposed, washed out, and faded.
+* If too little light reaches the camera sensor produces an underexposed image, dark and lacking in details, especially in shadow areas.
+* Image channel having normalized values in the range 0-1 is run through a loop where each pixel value is compared to the mean intensity value of the image and correction is applied accordingly
+
 ### Auto Adjustment
 * Brightness and contrast is linear operator with parameter `alpha` and `beta`
 
@@ -282,6 +287,7 @@ We enjoyed working on this project, got to know more about image representation.
 * Referred [this](https://www.google.com/url?sa=t&source=web&rct=j&url=http://dev.ipol.im/~nmonzon/Normalization.pdf&ved=2ahUKEwjK_q2F0bb6AhWUzjgGHUwGAIYQFnoECBcQAQ&usg=AOvVaw0Plz9s7KzA0SiCftLdy0oC) for Normalization of image
 
 * Referred [this](https://www.codeproject.com/Articles/653355/Color-Constancy-Gray-World-Algorithm) for White Balancing Algorithm 
+* Referred [this](https://link.springer.com/article/10.1007/s11042-019-08318-1) for Auto Exposure Algorithm 
 
 * Referred [this](https://www.cambridgeincolour.com/tutorials/gamma-correction.htm) for gamma correction 
 
