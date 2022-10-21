@@ -38,9 +38,7 @@
 ## Tech Stack
 This section contains the technologies we used for this project.
 * C++
-* C
 * OpenCV
-* VS Code
 * Python
 
 ## File Structure
