@@ -78,6 +78,8 @@
 ![Auto Exposed Image](/assets/image3.png)
 
 ### Gamma Correction
+This is also the last one of the pre-processing algorithms just in case u got bored reading :P
+#### So what is it anyways
 * When twice the number of photons hit the sensor of a digital camera, it receives twice the signal (a linear relationship). 
 * However, we perceive double the amount of light as only a fraction brighter (a non-linear relationship)
 * Gamma correction or gamma is a nonlinear operation used to encode and decode luminance in an image
@@ -85,7 +87,7 @@
 #### Result of Gamma Correction -
 ![Gamma Corrected Image](/assets/gamma.png)
 
-#### So yeah that's our Image Pipeline, the results were good weren't they? :)
+#### So yeah that's it from our Image Pipeline for the Pre-Processing part, the results were good weren't they? :)
 
 #### Here's one more beautiful (processed :P) image to make your day 
 ![](/assets/Processed.png)
