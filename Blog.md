@@ -85,7 +85,7 @@
 #### Result of Gamma Correction -
 ![Gamma Corrected Image](/assets/gamma.png)
 
-### So yeah that's our Image Pipeline, the results were good weren't they? :)
+#### So yeah that's our Image Pipeline, the results were good weren't they? :)
 
-### Here's one more beautiful (processed :P) image to make your day 
+#### Here's one more beautiful (processed :P) image to make your day 
 ![](/assets/Processed.png)
