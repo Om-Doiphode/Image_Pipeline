@@ -91,3 +91,48 @@ This is also the last one of the pre-processing algorithms just in case u got bo
 
 #### Here's one more beautiful (processed :P) image to make your day 
 ![](/assets/Processed.png)
+
+
+## Post-Processing Algorithms
+#### So let's move on to some Post-Processing algorithms now
+
+## Color Conversion 
+#### Let's play with the colors of the image first :)
+### RGB → Grayscale -
+#### Ahaa Grayscale, feelin' old yet?
+![RGB to Gray](/assets/RGBtoGray.png)
+#### Luminosity Method for conversion
+* The best method is the luminosity method which successfully solves the problems of previous methods.
+* Based on the observations, we should take a weighted average of the components. The contribution of blue to the final value should decrease, and the contribution of green should increase.
+* After some experiments and more in-depth analysis, researchers have concluded in the equation below:
+
+    `Grayscale = (0.3 * R + 0.59 * G + 0.11* B)/3`
+* Here most weight is given to green-colored pixels as humans are said to perceive green light well.
+
+### RGB → Binary -
+
+* Binary images are images whose pixels have only two possible intensity values. They are normally displayed as black and white.
+* Numerically, the two values are often 0 for black, and either 1 or 255 for white.
+* Binary images are often produced by thresholding a grayscale or color image, in order to separate an object in the image from the background.
+
+![RGB to Binary](/assets/RGBtoBinary.png)
+
+### RGB → HSV -
+
+* HSV – (hue, saturation, value), also known as HSB (hue, saturation, brightness), is often used by artists because it is often more natural to think about a color in terms of hue and saturation than in terms of additive or subtractive color components.
+* HSV is a transformation of an RGB colorspace, and its components and colorimetry are relative to the RGB colorspace from which it was derived.
+
+![RGB to HSV](/assets/RGBtoHSV.png)
+
+#### Enough playing with the colors for now, let's look at some other algorithms
+
+## Edge Detection
+#### Not gonna explain this since it's pretty self-explanatory, jk here you go :P
+#### An edge in an image is a significant local change in the image intensity. As the name suggests, edge detection is the process of detecting the edges in an image. We applied sobel edge detection here.
+### Sobel Edge Detection -
+
+* The Sobel operator performs a 2-D spatial gradient measurement on an image and so emphasizes regions of high spatial frequency that correspond to edges. Typically it is used to find the approximate absolute gradient magnitude at each point in an input grayscale image.
+* In theory at least, the operator consists of a pair of 3×3 convolution kernels. One kernel is simply the transpose of other.
+* These kernels are designed to respond maximally to edges running vertically and horizontally relative to the pixel grid, one kernel for each of the two perpendicular orientations.
+
+![](/assets/edge4.png)
