@@ -1,5 +1,6 @@
 # Image Pipeline
-![Image Pipeline](/assets/intro.gif)
+<img src="https://i.ibb.co/zNJmkxQ/intro.gif" alt="intro" border="0">
+
 <!-- TABLE OF CONTENTS -->
 # Table of Contents
 
@@ -149,7 +150,7 @@ beta = -min(I) * alpha`
 
    Where <b>I</b> is our input image and <b>G</b> is our gamma value. The output image <b>O</b> is then scaled back to the range [0, 255].
 
-![Preprocessing](/assets/preprocessing.png)
+<img src="https://i.ibb.co/Wk4BNXm/preprocessing.png" alt="preprocessing" border="0">
 
 ### RGB --> Grayscale
 
@@ -223,49 +224,49 @@ Opening is just another name of <b>erosion</b> followed by <b>dilation</b>. It i
 * This is highly effective against salt-and-pepper noise in an image.
 
 ### Rotation
-![Rotation](assets/Rotation.png)
+<img src="https://i.ibb.co/BjyQV18/Rotation.png" alt="Rotation" border="0">
 
 
 ## Results and Demo
 ### Preprocessing Results
 RAW Image           |  Preprocessed Image
 :-------------------------:|:-------------------------:
-<image src="assets/image3o.png" alt = "Image1" width = 350 height="200">  | <image src="assets/image3.png" alt = "PreImage" width = 350 height="200"> 
-<image src="assets/imageoutput2.png" alt = "Image1" width = 350 height="200">  | <image src="assets/imageoutput1.png" alt = "PreImage" width = 350 height="200">
-<image src="assets/image2o.png" alt = "Image1" width = 350 height="200">  | <image src="assets/image2.png" alt = "PreImage" width = 350 height="200">
-<image src="assets/image4.png" alt = "Image1" width = 350 height="200">  | <image src="assets/image4o.png" alt = "PreImage" width = 350 height="200">
-<image src="assets/flash.png" alt = "Image1" width = 350 height="200">  | <image src="assets/flasho.png" alt = "PreImage" width = 350 height="200">
+<image src="https://i.ibb.co/pyDSCbJ/image3o.png" alt = "Image1" width = 350 height="200">  | <image src="https://i.ibb.co/6NDnLc7/image3.png" alt = "PreImage" width = 350 height="200"> 
+<image src="https://i.ibb.co/F58pZxT/imageoutput2.png" alt = "Image1" width = 350 height="200">  | <image src="https://i.ibb.co/Qcwxt3B/imageoutput1.png" alt = "PreImage" width = 350 height="200">
+<image src="https://i.ibb.co/KF1zmcD/image2o.png" alt = "Image1" width = 350 height="200">  | <image src="https://i.ibb.co/TLv4Y1M/image2.png" alt = "PreImage" width = 350 height="200">
+<image src="https://i.ibb.co/jw5dTNG/image4.png" alt = "Image1" width = 350 height="200">  | <image src="https://i.ibb.co/djTqzzP/image4o.png" alt = "PreImage" width = 350 height="200">
+<image src="https://i.ibb.co/tzBYq0Y/flash.png" alt = "Image1" width = 350 height="200">  | <image src="https://i.ibb.co/H442rm0/flasho.png" alt = "PreImage" width = 350 height="200">
 
 <hr>
 
 ### Post-Processing
 Grayscale Conversion             |  Binary conversion
 :-------------------------:|:-------------------------:
-<image src="assets/gray.png" alt = "gray" width = 350>  | <image src="assets/binary.png" alt = "grayscale" width = 350> 
+<image src="https://i.ibb.co/vQfyk6d/gray.png" alt = "gray" width = 350>  | <image src="https://i.ibb.co/MPPRqBy/binary.png" alt = "grayscale" width = 350> 
 
 HSV Conversion             |   Sobel Edge Detection
 :-------------------------:|:-------------------------:
-<image src="assets/hsv.png" alt = "HSV" width = 350>  | <image src="assets/edges.png" alt = "Edges" width = 350> 
+<image src="https://i.ibb.co/ftyYJZ1/hsv.png" alt = "HSV" width = 350>  | <image src="https://i.ibb.co/6bwHsQ9/edges.png" alt = "Edges" width = 350> 
 
 Erosion          |  Dilation
 :-------------------------:|:-------------------------:
-<image src="assets/erode.png" alt = "Erode" width = 350>  | <image src="assets/dilate.png" alt = "Dilate" width = 350> 
+<image src="https://i.ibb.co/61p13y7/erode.png" alt = "Erode" width = 350>  | <image src="https://i.ibb.co/m6qsS2x/dilate.png" alt = "Dilate" width = 350> 
 
 Opening             |  Closing
 :-------------------------:|:-------------------------:
-<image src="assets/opening.png" alt = "Opening" width = 350>  | <image src="assets/closing.png" alt = "Closing" width = 350> 
+<image src="https://i.ibb.co/SyxCyhK/opening.png" alt = "Opening" width = 350>  | <image src="https://i.ibb.co/NZ4YdJJ/closing.png" alt = "Closing" width = 350> 
 
 Gradient             |  Mean Filter
 :-------------------------:|:-------------------------:
-<image src="assets/gradient.png" alt = "Gradient" width = 350>  | <image src="assets/meanblur.png" alt = "MeanBlur" width = 350> 
+<image src="https://i.ibb.co/w6rrpBF/gradient.png" alt = "Gradient" width = 350>  | <image src="https://i.ibb.co/7S0K7qL/meanblur.png" alt = "MeanBlur" width = 350> 
 
 Gaussian Filter            |  Median Filter
 :-------------------------:|:-------------------------:
-<image src="assets/gaussianblur.png" alt = "GaussianBlur" width = 350>  | <image src="assets/median.png" alt = "Median" width = 350>
+<image src="https://i.ibb.co/ynMrTYM/gaussianblur.png" alt = "GaussianBlur" width = 350>  | <image src="https://i.ibb.co/h1qWnWX/median.png" alt = "Median" width = 350>
 
 Original Image            |  Rotated Image(120<sup>o</sup>)
 :-------------------------:|:-------------------------:
-<image src="assets/median.png" alt = "GaussianBlur" width = 350>  | <image src="assets/Rotated.png" alt = "Median" width = 350>
+<image src="https://i.ibb.co/h1qWnWX/median.png" alt = "GaussianBlur" width = 350>  | <image src="https://i.ibb.co/rmJmWhR/Rotated.png" alt = "Median" width = 350>
 
 ## Future Works
 We enjoyed working on this project, got to know more about image representation. We will try to
